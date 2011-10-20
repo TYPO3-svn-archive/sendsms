@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>module</type>
+		<description>Language labels for plugin &quot;tx_sendsms_pi1&quot;</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="form_submit">Send SMS</label>
+			<label index="form_youhave">You have %1$d free SMS (%2$d SMS %3$s)</label>
+			<label index="form_phone">To:</label>
+			<label index="form_phone_template">%1$s (max. %2$d)</label>
+			<label index="form_format">Format: +491234567890, 0123123456789</label>
+			<label index="form_format_link">other formats</label>
+			<label index="form_format_template">%1$s (%2$s)</label>
+			<label index="form_message">Text:</label>
+			<label index="form_characters">Characters count</label>
+			<label index="form_characters_template">%1$s: %2$s%3$s</label>
+			<label index="form_characters_footnote_sign">*</label>
+			<label index="form_signature">%1$s Your message contains already the signature of %2$s</label>
+			<label index="form_sms">SMS count</label>
+			<label index="form_sms_template">%1$s: %2$s</label>
+			<label index="form_flash">Send as %1$s</label>
+			<label index="form_flash_link">Flash SMS</label>
+			<label index="form_captcha">Enter the code:</label>
+			<label index="form_login">You must login in to send SMS</label>
+			<label index="error_loginpassword">Developer Center login/password is empty</label>
+			<label index="error_message">Please enter some text to send the message</label>
+			<label index="error_phone">Please enter the recipient's mobile phone number</label>
+			<label index="error_number">The recipient's mobile phone number format is not valid</label>
+			<label index="error_longmessage">Your message text is too long</label>
+			<label index="error_captcha">The code is incorrect</label>
+			<label index="error_toomanyrecipietns">Too many recipients</label>
+			<label index="error_telekom_0002">Gateway error: The sent message is too long</label>
+			<label index="error_telekom_0003">Gateway error: One or several of the phone number formats are not valid</label>
+			<label index="error_telekom_0004">Gateway error: Too many recipients</label>
+			<label index="error_telekom_0005">Gateway error: The specified sender name is not allowed</label>
+			<label index="error_telekom_0006">Gateway error: The transferred message is empty</label>
+			<label index="error_telekom_0007">Gateway error: No recipient number was transferred</label>
+			<label index="error_telekom_connect">Couldn't connect to Telekom</label>
+			<label index="result_ok">Your SMS has been sent successfully</label>
+			<label index="result_ok_pl">Your SMS has been sent successfully</label>
+			<label index="not_enough_sms">No free SMS left. Please try again at %1$s</label>
+			<label index="next_sms">Send another SMS: %1$s</label>
+			<label index="click_here">click here</label>
+			<label index="price_sms">This SMS would have cost: %1$s €</label>
+			<label index="price_sms_pl">These SMS would have cost: %1$s €</label>
+			<label index="limit_10_min">every 10 minutes</label>
+			<label index="limit_30_min">every 30 minutes</label>
+			<label index="limit_60_min">every hour</label>
+			<label index="limit_86400_min">per day</label>
+			<label index="environment">System environment</label>
+			<label index="environment_template">%1$s: %2$s</label>
+			<label index="error_numberformat">The phone number format is not valid: %1$s</label>
+		</languageKey>
+		<languageKey index="de" type="array">
+			<label index="form_submit">Jetzt senden</label>
+			<label index="form_youhave">Du hast %1$d kostenlose SMS (%2$d SMS %3$s)</label>
+			<label index="form_phone">Empfänger:</label>
+			<label index="form_phone_template">%1$s (max. %2$d)</label>
+			<label index="form_format">Rufnummernformat: +491234567890, 0123123456789</label>
+			<label index="form_format_link">weitere Formate</label>
+			<label index="form_format_template">%1$s (%2$s)</label>
+			<label index="form_message">Nachricht:</label>
+			<label index="form_characters">Anzahl Zeichen</label>
+			<label index="form_characters_template">%1$s: %2$s%3$s</label>
+			<label index="form_characters_footnote_sign">*</label>
+			<label index="form_signature">%1$s Deine Nachricht enthält bereits die Signatur %2$s</label>
+			<label index="form_sms">Anzahl SMS</label>
+			<label index="form_sms_template">%1$s: %2$s</label>
+			<label index="form_flash">Senden als %1$s</label>
+			<label index="form_flash_link">Flash SMS</label>
+			<label index="form_captcha">Bitte Code eingeben:</label>
+			<label index="form_login">Bitte melde Dich an um SMS senden zu können</label>
+			<label index="error_loginpassword">Developer Center Login/Passwort ist nicht korrekt</label>
+			<label index="error_message">Bitte gib Deinen Text ein</label>
+			<label index="error_phone">Bitte gib die Rufnummer des Empfängers ein</label>
+			<label index="error_number">Die Rufnummer ist nicht korrekt</label>
+			<label index="error_longmessage">Deine Nachricht ist zu lang</label>
+			<label index="error_captcha">Falscher Code</label>
+			<label index="error_toomanyrecipietns">Zu viele Empfänger</label>
+			<label index="error_telekom_0002">Gateway error: Die Mitteilung war zu lang</label>
+			<label index="error_telekom_0003">Gateway error: Mindestens eine Rufnummer war ungültig</label>
+			<label index="error_telekom_0004">Gateway error: Es wurden zu viele Empfänger angegeben</label>
+			<label index="error_telekom_0005">Gateway error: Der angegebene Sendername ist ungültig</label>
+			<label index="error_telekom_0006">Gateway error: Die übergebene Mitteilung enthält keine Zeichen</label>
+			<label index="error_telekom_0007">Gateway error: Es wurden keine Empfängerrufnummern übergeben</label>
+			<label index="error_telekom_connect">Keine Verbindung zum Telekom</label>
+			<label index="result_ok">Deine SMS wurde erfolgreich gesendet</label>
+			<label index="result_ok_pl">Deine SMS wurden erfolgreich gesendet</label>
+			<label index="not_enough_sms">SMS Kontingent ist verbraucht. SMS Versand ist wieder möglich ab %1$s</label>
+			<label index="next_sms">Weitere SMS senden: %1$s</label>
+			<label index="click_here">hier klicken</label>
+			<label index="price_sms">Diese SMS hätte gekostet: %1$s €</label>
+			<label index="price_sms_pl">Diese SMS hätten gekostet: %1$s €</label>
+			<label index="limit_10_min">innerhalb von 10 Minuten</label>
+			<label index="limit_30_min">innerhalb von 30 Minuten</label>
+			<label index="limit_60_min">innerhalb einer Stunde</label>
+			<label index="limit_86400_min">innerhalb eines Tages</label>
+			<label index="environment">Systemumgebung</label>
+			<label index="environment_template">%1$s: %2$s</label>
+			<label index="error_numberformat">Die Rufnummer ist nicht korrekt: %1$s</label>
+		</languageKey>
+	</data>
+</T3locallang>

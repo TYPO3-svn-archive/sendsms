@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>database</type>
+		<description>Language labels for flexform fields belonging to extension 'sendsms'</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="label.flex1">Developer Center login</label>
+			<label index="label.flex2">Developer Center password</label>		
+			<label index="label.flex3">Sender (max 11 characters, only letters and figures) or validated phone number</label>
+			<label index="label.flex4">Signature</label>
+			<label index="label.flex5">Environment</label>
+			<label index="label.flex6">Hide environment</label>
+			<label index="label.flex10">SMS per Time interval for each user</label>
+			<label index="label.flex11">Time interval</label>
+			<label index="label.flex12">Maximal number of recipients</label>
+			<label index="label.flex13">Phone numbers format, page ID</label>
+			<label index="label.flex14">Phone numbers format, additional parameters</label>
+			<label index="label.flex15">Restrictions, page ID</label>
+			<label index="label.flex16">Restrictions, additional parameters</label>
+			<label index="label.flex17">Flash SMS, page ID</label>
+			<label index="label.flex18">Flash SMS, additional parameters</label>
+			<label index="label.flex19">Environments, page ID</label>
+			<label index="label.flex20">Environments, additional parameters</label>
+			<label index="label.flex21">Website's name</label>
+			<label index="label.flex22">Hide phone number format</label>
+			<label index="label.flex23">Allow to send SMS without registration</label>
+			<label index="label.flex24">Allow to send Flash SMS</label>
+			<label index="label.flex25">Hide maximal number of recipients</label>
+			<label index="label.flex26">Hide characters and SMS counter</label>
+			<label index="label.flex27">Hide signature explanation</label>
+			<label index="label.flex28">Turn on Feedback-Mode</label>
+			<label index="label.flex29">Phone number for Feedback</label>
+			<label index="label.flex11.option0">10 minutes</label>
+			<label index="label.flex11.option1">30 minutes</label>
+			<label index="label.flex11.option2">1 hour</label>
+			<label index="label.flex11.option3">1 day</label>
+			<label index="label.flex.sheet0">Connection</label>
+			<label index="label.flex.sheet1">Settings</label>
+			<label index="label.flex.sheet2">Limits</label>
+			<label index="label.flex.sheet3">Links</label>
+			<label index="label.flex.sheet4">Appearance</label>
+		</languageKey>
+		<languageKey index="de" type="array">
+			<label index="label.flex1">Developer Center Login</label>
+			<label index="label.flex2">Developer Center Kennwort</label>		
+			<label index="label.flex3">Absender (maximal 11 Zeichen, nur Buchstaben und Ziffern) oder validierte Rufnummer</label>
+			<label index="label.flex4">Signatur</label>
+			<label index="label.flex5">Umgebung</label>
+			<label index="label.flex6">Umgebung anzeigen</label>
+			<label index="label.flex10">Anzahl SMS pro Zeitraum je Bentuzer</label>
+			<label index="label.flex11">Zeitraum</label>
+			<label index="label.flex12">Maximal Anzahl Empfänger</label>
+			<label index="label.flex13">Rufnummernformate, page ID</label>
+			<label index="label.flex14">Rufnummernformate, additional parameters</label>
+			<label index="label.flex15">Einschränkungen, page ID</label>
+			<label index="label.flex16">Einschränkungen, additional parameters</label>
+			<label index="label.flex17">Flash SMS, page ID</label>
+			<label index="label.flex18">Flash SMS, additional parameters</label>
+			<label index="label.flex19">Umgebungen, page ID</label>
+			<label index="label.flex20">Umgebungen, additional parameters</label>
+			<label index="label.flex21">Name der Webseite</label>
+			<label index="label.flex22">Rufnummerformat anzeigen</label>
+			<label index="label.flex23">Erlauben SMS ohne Registrierung zu senden</label>
+			<label index="label.flex24">Erlauben Flash SMS zu senden</label>
+			<label index="label.flex25">Maximale Anzal der Empfänger verstecken</label>
+			<label index="label.flex26">Zeichenzähler verstecken</label>
+			<label index="label.flex27">Erklärung der Signatur verstecken</label>
+			<label index="label.flex28">Feedback-Funktion anschalten</label>
+			<label index="label.flex29">Rufnummer für Feedback</label>
+			<label index="label.flex11.option0">10 Minuten</label>
+			<label index="label.flex11.option1">30 Minuten</label>
+			<label index="label.flex11.option2">1 Stunde</label>
+			<label index="label.flex11.option3">1 Tag</label>
+			<label index="label.flex.sheet0">Verbindung</label>
+			<label index="label.flex.sheet1">Einstellungen</label>
+			<label index="label.flex.sheet2">Einschränkungen</label>
+			<label index="label.flex.sheet3">Links</label>
+			<label index="label.flex.sheet4">Aussehen</label>
+		</languageKey>
+	</data>
+</T3locallang>

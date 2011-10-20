@@ -1,0 +1,9 @@
+plugin.tx_sendsms_pi1 {
+	textarea_rows = 10
+	textarea_cols = 53
+	phone_input_min = 20
+	phone_input_max = 63
+	phone_input_toggle = 1
+	phone_input_toggle_text = ...
+	signature_wrap = small
+}
