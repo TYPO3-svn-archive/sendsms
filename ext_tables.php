@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2011 Alexander Kraskov <alexander.kraskov@telekom.de>
+*  (c) 2011 Alexander Kraskov <t3extensions@developergarden.com>
 *      Developer Garden (www.developergarden.com)
 *	   Deutsche Telekom AG
 *      Products & Innovation
@@ -27,7 +27,7 @@
 ***************************************************************/
 
 if (!defined('TYPO3_MODE')) {
-	die ('Resistance is futile');
+	die ('Access denied.');
 }
 
 t3lib_div::loadTCA('tt_content');
@@ -42,9 +42,9 @@ t3lib_extMgm::addPlugin(array(
 
 
 if (TYPO3_MODE == 'BE') {
-	t3lib_extMgm::addModulePath('user_txsendsmsM1', t3lib_extMgm::extPath($_EXTKEY) . 'mod1/');
-		
-	t3lib_extMgm::addModule('user', 'txsendsmsM1', '', t3lib_extMgm::extPath($_EXTKEY) . 'mod1/');
+    t3lib_extMgm::addModulePath('user_txsendsmsM1', t3lib_extMgm::extPath($_EXTKEY) . 'mod1/');
+        
+    t3lib_extMgm::addModule('user', 'txsendsmsM1', '', t3lib_extMgm::extPath($_EXTKEY) . 'mod1/');
 }
 
 // FLEX FORM

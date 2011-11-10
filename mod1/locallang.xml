@@ -2,7 +2,7 @@
 <T3locallang>
 	<meta type="array">
 		<type>module</type>
-		<description>Language labels for module &quot;tools_txsendsmsmM1&quot;</description>
+		<description>Language labels for module &quot;tools_txsendsmsM1&quot;</description>
 	</meta>
 	<data type="array">
 		<languageKey index="default" type="array">
@@ -120,7 +120,7 @@
 			<label index="button_validate">Validieren</label>
 			<label index="ok_validation">Rufnummernvalidierung</label>
 			<label index="err_validation">Fehler: Rufnummernvalidierung</label>
-			<label index="header_invalidation">Withdrawal a validation</label>
+			<label index="header_invalidation">Rücknahme einer Validierung</label>
 			<label index="label_phone2">Rufnummer:</label>
 			<label index="button_invalidate">Zurücknehmen</label>
 			<label index="ok_invalidation">Rücknahme einer Validierung</label>

@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2011 Alexander Kraskov <alexander.kraskov@telekom.de>
+*  (c) 2011 Alexander Kraskov <t3extensions@developergarden.com>
 *      Developer Garden (www.developergarden.com)
 *	   Deutsche Telekom AG
 *      Products & Innovation
@@ -31,18 +31,18 @@
  *
  *
  *   44: class  tx_sendsms_callingcodes
- *   84:     function removeSpecialSymbols($text)
- *  105:     function test($number, $c, $arr)
- *  124:     function getCallingCode($number)
- *  156:     function test2($code, $c, $arr)
- *  173:     function getTarifzone($code)
+ *   81:     function removeSpecialSymbols($text)
+ *  103:     function test($number, $c, $arr)
+ *  121:     function getCallingCode($number)
+ *  154:     function test2($code, $c, $arr)
+ *  172:     function getTarifzone($code)
  *
  * TOTAL FUNCTIONS: 5
  * (This index is automatically created/updated by the extension "extdeveval")
  *
  */
 class  tx_sendsms_callingcodes {
-	// Lists with calling codes, are used to find a calling code in phone number
+
 	protected  $fourNumerals = array (3906, 1246, 1264, 1268, 1345, 1441, 1473, 1649, 1767, 1784, 1809, 1829, 1868, 1869, 1876);
 	protected  $threeNumerals = array (210, 211, 212, 213, 214, 215, 216, 217, 218, 219, 220, 221, 222, 223, 224, 225, 226, 227, 228, 229, 230, 231, 232, 233, 234, 235, 236, 237, 238, 239, 240, 241, 242, 243, 244, 245, 246, 247, 248, 249, 250, 251, 252, 253, 254, 255, 256, 257, 258, 260, 261, 262, 263, 264, 265, 266, 267, 268, 269, 290, 291, 297, 298, 299,
 								350, 351, 352, 353, 354, 355, 356, 357, 358, 359, 370, 371, 372, 373, 374, 375, 376, 377, 378, 379, 380, 381, 382, 383, 384, 385, 386, 387, 389,
@@ -59,22 +59,19 @@ class  tx_sendsms_callingcodes {
 							  81, 82, 83, 84, 86,
 							  91, 92, 93, 94, 95, 98);
 	protected  $oneNumeral = array (1, 7);
-	// All prices: http://www.telekom.de/dlp/agb/pdf/39014.pdf
-	// Tarifberiech 1. 0,105 €
+
 	protected  $zone1 = array (93, 20, 376, 244, 1264, 1268, 240, 54, 374, 297, 251, 994, 973, 880, 1246, 501, 229, 1441, 975, 591, 387, 267, 55,
 						673, 359, 226, 257, 56, 886, 506, 253, 1767, 1809, 1829, 593, 503, 298, 679, 689, 241, 220, 995, 233, 350, 590,
 						299, 502, 224, 592, 504, 98, 964, 972, 1876, 81, 967, 962, 855, 237, 1, 238, 1345, 254, 57, 269, 243, 242, 850, 82,
 						53, 965, 996, 856, 371, 218, 423, 370, 352, 853, 261, 60, 960, 223, 356, 596, 222, 262, 52, 377, 976, 264, 977, 599,
 						505, 227, 234, 47, 968, 92, 970, 507, 595, 51, 974, 262, 7, 250, 260, 685, 966, 221, 248, 232, 263, 252, 94, 1869, 1784,
 						249, 597, 268, 963, 992, 255, 228, 235, 993, 1649, 256, 380, 598, 998, 58, 84, 375, 236, 357);
-	// Tarifberiech 2. 0,127 €
-	// Kasachstan (Mobilfunk: 6xx, Ortsvorwahlen: 7xx => 76 & 77)
+	// Tarifberiech 2. Kasachstan (Mobilfunk: 6xx, Ortsvorwahlen: 7xx => 76 & 77)
 	protected  $zone2 = array (76, 77, 355, 213, 61, 45, 225, 372, 358, 30, 1473, 44, 91, 62, 353, 39, 385, 961, 265, 212, 230, 389, 373, 382, 258, 687, 64, 63, 48, 351,
 						40, 381, 65, 421, 386, 27, 46, 41, 66, 420, 216, 36, 971);
-	// Tarifberiech 3. 0,165 €
 	protected  $zone3 = array (32, 33, 852, 354, 31, 43, 378, 34, 90);
-	// Tarifberiech 4. 0,202 €
 	protected  $zone4 = array (86, 3906);
+
 	/**
 	 * Removes all special symbols from phone number
 	 *
@@ -94,11 +91,12 @@ class  tx_sendsms_callingcodes {
 		}
 		return $retValue;
 	}
+
 	/**
 	 * Searches in "numerals" arrays
 	 *
 	 * @param	string		$number: phone number, only figures
-	 * @param	int			$c: calling codes length
+	 * @param	int		$c: calling codes length
 	 * @param	array		$arr: callign codes array
 	 * @return	boolean		found or not
 	 */
@@ -113,9 +111,10 @@ class  tx_sendsms_callingcodes {
 		}
 		return $found;
 	}
+
 	/**
 	 * Searches Callign code in phone nummer
-	 * If first sign is 0, returns 49
+	 * If first sign is 0,  returns 49
 	 * Returns null, if nothing has been found
 	 *
 	 * @param	string		$number: phone number, only figures
@@ -145,13 +144,14 @@ class  tx_sendsms_callingcodes {
 		}
 		return $retValue;
 	}
+
 	/**
 	 * Searches Tarifzones index
 	 *
 	 * @param	string		$code: calling code
-	 * @param	int			$c: index of Tarifzone
+	 * @param	int		$c: index of Tarifzone
 	 * @param	array		$arr: Tarifzone array
-	 * @return	int			calling code, if it has been found
+	 * @return	int		calling code, if it's found
 	 */
 	protected function test2($code, $c, $arr) {
 		$n = (int)$code;
@@ -164,11 +164,12 @@ class  tx_sendsms_callingcodes {
 		}
 		return null;
 	}
+
 	/**
 	 * Returns Tarifzone
 	 *
 	 * @param	string		$code: Calling code
-	 * @return	int			index of Tarifzone, 1-4
+	 * @return	int		index of Tarifzone, 1-4
 	 */
 	public function getTarifzone($code) {
 		$n = (int)$code;
@@ -191,5 +192,7 @@ class  tx_sendsms_callingcodes {
 		return null;
 	}
 }
-if (!defined ('PATH_typo3conf')) die ('Resistance is futile');
+
+if (!defined ('PATH_typo3conf')) die ('Resistance is futile.');
+
 ?>

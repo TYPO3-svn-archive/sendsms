@@ -15,11 +15,9 @@
 			<label index="form_format_template">%1$s (%2$s)</label>
 			<label index="form_message">Text:</label>
 			<label index="form_characters">Characters count</label>
-			<label index="form_characters_template">%1$s: %2$s%3$s</label>
 			<label index="form_characters_footnote_sign">*</label>
 			<label index="form_signature">%1$s Your message contains already the signature of %2$s</label>
 			<label index="form_sms">SMS count</label>
-			<label index="form_sms_template">%1$s: %2$s</label>
 			<label index="form_flash">Send as %1$s</label>
 			<label index="form_flash_link">Flash SMS</label>
 			<label index="form_captcha">Enter the code:</label>
@@ -37,7 +35,10 @@
 			<label index="error_telekom_0005">Gateway error: The specified sender name is not allowed</label>
 			<label index="error_telekom_0006">Gateway error: The transferred message is empty</label>
 			<label index="error_telekom_0007">Gateway error: No recipient number was transferred</label>
+			<label index="error_telekom_30">Gateway error: No free SMS left in Sandbox. Please try tomorrow.</label>
+			<label index="error_telekom_code">Gateway error, code: %1$s</label>
 			<label index="error_telekom_connect">Couldn't connect to Telekom</label>
+			<label index="error_already_sent">Your SMS is already sent</label>
 			<label index="result_ok">Your SMS has been sent successfully</label>
 			<label index="result_ok_pl">Your SMS has been sent successfully</label>
 			<label index="not_enough_sms">No free SMS left. Please try again at %1$s</label>
@@ -63,11 +64,9 @@
 			<label index="form_format_template">%1$s (%2$s)</label>
 			<label index="form_message">Nachricht:</label>
 			<label index="form_characters">Anzahl Zeichen</label>
-			<label index="form_characters_template">%1$s: %2$s%3$s</label>
 			<label index="form_characters_footnote_sign">*</label>
 			<label index="form_signature">%1$s Deine Nachricht enthält bereits die Signatur %2$s</label>
 			<label index="form_sms">Anzahl SMS</label>
-			<label index="form_sms_template">%1$s: %2$s</label>
 			<label index="form_flash">Senden als %1$s</label>
 			<label index="form_flash_link">Flash SMS</label>
 			<label index="form_captcha">Bitte Code eingeben:</label>
@@ -85,7 +84,10 @@
 			<label index="error_telekom_0005">Gateway error: Der angegebene Sendername ist ungültig</label>
 			<label index="error_telekom_0006">Gateway error: Die übergebene Mitteilung enthält keine Zeichen</label>
 			<label index="error_telekom_0007">Gateway error: Es wurden keine Empfängerrufnummern übergeben</label>
+			<label index="error_telekom_30">Gateway error: Sandbox-SMS Kontingent ist verbraucht. SMS Versand ist morgen wieder möglich</label>
+			<label index="error_telekom_code">Gateway error, Code: %1$s</label>
 			<label index="error_telekom_connect">Keine Verbindung zum Telekom</label>
+			<label index="error_already_sent">Deine SMS ist schon gesendet</label>
 			<label index="result_ok">Deine SMS wurde erfolgreich gesendet</label>
 			<label index="result_ok_pl">Deine SMS wurden erfolgreich gesendet</label>
 			<label index="not_enough_sms">SMS Kontingent ist verbraucht. SMS Versand ist wieder möglich ab %1$s</label>

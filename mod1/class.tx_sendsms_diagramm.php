@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2011 Alexander Kraskov <alexander.kraskov@telekom.de>
+*  (c) 2011 Alexander Kraskov <t3extensions@developergarden.com>
 *      Developer Garden (www.developergarden.com)
 *	   Deutsche Telekom AG
 *      Products & Innovation

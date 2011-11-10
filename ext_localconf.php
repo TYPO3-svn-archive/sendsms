@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2011 Alexander Kraskov <alexander.kraskov@telekom.de>
+*  (c) 2011 Alexander Kraskov <t3extensions@developergarden.com>
 *      Developer Garden (www.developergarden.com)
 *	   Deutsche Telekom AG
 *      Products & Innovation
@@ -27,7 +27,7 @@
 ***************************************************************/
 
 if (!defined('TYPO3_MODE')) {
-	die ('Resistance is futile');
+	die ('Access denied.');
 }
 
 t3lib_extMgm::addPItoST43($_EXTKEY, 'pi1/class.tx_sendsms_pi1.php', '_pi1', 'list_type', 0);

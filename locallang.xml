@@ -27,11 +27,9 @@
 			<label index="label.flex22">Hide phone number format</label>
 			<label index="label.flex23">Allow to send SMS without registration</label>
 			<label index="label.flex24">Allow to send Flash SMS</label>
-			<label index="label.flex25">Hide maximal number of recipients</label>
+			<label index="label.flex25">Hide restrictions</label>
 			<label index="label.flex26">Hide characters and SMS counter</label>
 			<label index="label.flex27">Hide signature explanation</label>
-			<label index="label.flex28">Turn on Feedback-Mode</label>
-			<label index="label.flex29">Phone number for Feedback</label>
 			<label index="label.flex11.option0">10 minutes</label>
 			<label index="label.flex11.option1">30 minutes</label>
 			<label index="label.flex11.option2">1 hour</label>
@@ -49,7 +47,7 @@
 			<label index="label.flex4">Signatur</label>
 			<label index="label.flex5">Umgebung</label>
 			<label index="label.flex6">Umgebung anzeigen</label>
-			<label index="label.flex10">Anzahl SMS pro Zeitraum je Bentuzer</label>
+			<label index="label.flex10">Anzahl SMS pro Zeitraum je Benutzer</label>
 			<label index="label.flex11">Zeitraum</label>
 			<label index="label.flex12">Maximal Anzahl Empfänger</label>
 			<label index="label.flex13">Rufnummernformate, page ID</label>
@@ -64,11 +62,9 @@
 			<label index="label.flex22">Rufnummerformat anzeigen</label>
 			<label index="label.flex23">Erlauben SMS ohne Registrierung zu senden</label>
 			<label index="label.flex24">Erlauben Flash SMS zu senden</label>
-			<label index="label.flex25">Maximale Anzal der Empfänger verstecken</label>
+			<label index="label.flex25">Einschränkungen verstecken</label>
 			<label index="label.flex26">Zeichenzähler verstecken</label>
 			<label index="label.flex27">Erklärung der Signatur verstecken</label>
-			<label index="label.flex28">Feedback-Funktion anschalten</label>
-			<label index="label.flex29">Rufnummer für Feedback</label>
 			<label index="label.flex11.option0">10 Minuten</label>
 			<label index="label.flex11.option1">30 Minuten</label>
 			<label index="label.flex11.option2">1 Stunde</label>

@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2011 Alexander Kraskov <alexander.kraskov@telekom.de>
+*  (c) 2011 Alexander Kraskov <t3extensions@developergarden.de>
 *      Developer Garden (www.developergarden.com)
 *	   Deutsche Telekom AG
 *      Products & Innovation
@@ -28,7 +28,19 @@
 /**
  * [CLASS/FUNCTION INDEX of SCRIPT]
  *
- * Hint: use extdeveval to insert/update function index above.
+ *
+ *
+ *   63: class  tx_sendsms_module1 extends t3lib_SCbase
+ *   71:     function init()
+ *   88:     function menuConfig()
+ *  107:     function selectedMonth($s)
+ *  126:     function main()
+ *  196:     function printContent()
+ *  207:     function moduleContent()
+ *
+ * TOTAL FUNCTIONS: 6
+ * (This index is automatically created/updated by the extension "extdeveval")
+ *
  */
 
 
@@ -39,8 +51,9 @@ $BE_USER->modAccess($MCONF,1);	// This checks permissions and exits if the users
 
 require_once('class.tx_sendsms_diagramm.php');
 
+
 /**
- * Module 'DG: Send SMS' for the 'sendsms' extension.
+ * Module 'Send SMS T3 Extension' for the 'sendsms' extension.
  *
  * @author	Alexander Kraskov <alexander.kraskov@telekom.de>
  * @package	TYPO3
@@ -49,15 +62,16 @@ require_once('class.tx_sendsms_diagramm.php');
 class  tx_sendsms_module1 extends t3lib_SCbase {
 	var $pageinfo;
 	var $extKey = 'sendsms';	// The extension key.
+	
 	/**
-	 * Initializes the Module
-	 * @return	void
-	 */
+	* Initializes the Module
+	*
+	* @return	void
+	*/
 	function init()	{
 		global $BE_USER,$LANG,$BACK_PATH,$TCA_DESCR,$TCA,$CLIENT,$TYPO3_CONF_VARS;
 
 		parent::init();
-
 		/*
 		if (t3lib_div::_GP('clear_all_cache'))	{
 			$this->include_once[] = PATH_t3lib.'class.t3lib_tcemain.php';
@@ -66,10 +80,10 @@ class  tx_sendsms_module1 extends t3lib_SCbase {
 	}
 
 	/**
-	 * Adds items to the ->MOD_MENU array. Used for the function menu selector.
-	 *
-	 * @return	void
-	 */
+	* Adds items to the ->MOD_MENU array. Used for the function menu selector.
+	*
+	* @return	void
+	*/
 	function menuConfig()	{
 		global $LANG;
 		$this->MOD_MENU = Array (
@@ -83,6 +97,7 @@ class  tx_sendsms_module1 extends t3lib_SCbase {
 		);
 		parent::menuConfig();
 	}
+
 	/**
 	* Returns content for HTML Form's element "select" filled with months
 	*
@@ -101,12 +116,13 @@ class  tx_sendsms_module1 extends t3lib_SCbase {
 		}
 		return $retValue;
 	}
+
 	/**
-	 * Main function of the module. Write the content to $this->content
-	 * If you chose "web" as main module, you will need to consider the $this->id parameter which will contain the uid-number of the page clicked in the page tree
-	 *
-	 * @return	[type]		...
-	 */
+	* Main function of the module. Write the content to $this->content
+	* If you chose "web" as main module, you will need to consider the $this->id parameter which will contain the uid-number of the page clicked in the page tree
+	*
+	* @return	void		...
+	*/
 	function main()	{
 		global $BE_USER,$LANG,$BACK_PATH,$TCA_DESCR,$TCA,$CLIENT,$TYPO3_CONF_VARS;
 
@@ -204,7 +220,16 @@ $this->doc->form .= '</div>' .
 			
 			$this->content .= '</div></div></div>';
 		}
-	
+	}
+
+	/**
+	* Prints out the module HTML
+	*
+	* @return	void
+	*/
+	function printContent() {
+		$this->content.=$this->doc->endPage();
+		echo $this->content;
 	}
 	/**
 	* Adds a new Typo3 Flash message in queue and returns all messages
@@ -224,23 +249,7 @@ $this->doc->form .= '</div>' .
 		t3lib_FlashMessageQueue::addMessage($flashMessage);
 		return '<div style="width:468px;">' . t3lib_FlashMessageQueue::renderFlashMessages() . '</div>';
 	}
-	/**
-	 * Prints out the module HTML
-	 *
-	 * @return	void
-	 */
-	function printContent()	{
-
-		$this->content.=$this->doc->endPage();
-		echo $this->content;
-	}
-	/**
-	 * Makes debug message
-	 *
-	 * @param	string		$name:	function's name
-	 * @param	string		$name:	response from sdk
-	 * @return	string 
-	 */
+	
 	function errorMaker($name, $response) {
 		$errorMessage  = 'The invocation of ' . $name . ' was not successful.<br />';
 		$errorMessage .= 'The error code is: ' . $response->getStatus()->getStatusCode() . '<br />';
@@ -252,12 +261,13 @@ $this->doc->form .= '</div>' .
 		}
 		return $errorMessage;
 	}
+	
 	/**
-	 * Generates the module content
-	 *
-	 * @return	void
-	 */
-	function moduleContent()	{
+	* Generates the module content
+	*
+	* @return	void
+	*/
+	function moduleContent() {
 		global $LANG;
 		switch((string)$this->MOD_SETTINGS['function'])	{
 			case 1:
@@ -274,6 +284,7 @@ $this->doc->form .= '</div>' .
 					$countFeUsers = $row['COUNT(uid)'];
 				}
 				$GLOBALS['TYPO3_DB']->sql_free_result($res);
+
 				// tx_sendsms_sms
 				$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery(
 					'sms_sent',
@@ -716,45 +727,11 @@ $this->doc->form .= '</div>' .
 			// switch end
 		}
 	}
-	
-
-	/**
-	 * Create the panel of buttons for submitting the form or otherwise perform operations.
-	 *
-	 * @return	array	all available buttons as an assoc. array
-	 */
-	protected function getButtons()	{
-
-		$buttons = array(
-			'csh' => '',
-			'shortcut' => '',
-			'save' => ''
-		);
-			// CSH
-		$buttons['csh'] = t3lib_BEfunc::cshItem('_MOD_web_func', '', $GLOBALS['BACK_PATH']);
-
-			// SAVE button
-		$buttons['save'] = '<input type="image" class="c-inputButton" name="submit" value="Update"' . t3lib_iconWorks::skinImg($GLOBALS['BACK_PATH'], 'gfx/savedok.gif', '') . ' title="' . $GLOBALS['LANG']->sL('LLL:EXT:lang/locallang_core.php:rm.saveDoc', 1) . '" />';
-
-
-			// Shortcut
-		if ($GLOBALS['BE_USER']->mayMakeShortcut())	{
-			$buttons['shortcut'] = $this->doc->makeShortcutIcon('', 'function', $this->MCONF['name']);
-		}
-
-		return $buttons;
-	}
-	
 }
-
-
 
 if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/sendsms/mod1/index.php'])	{
 	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/sendsms/mod1/index.php']);
 }
-
-
-
 
 // Make instance:
 $SOBE = t3lib_div::makeInstance('tx_sendsms_module1');
