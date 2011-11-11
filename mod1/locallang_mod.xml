@@ -6,11 +6,11 @@
 	</meta>
 	<data type="array">
 		<languageKey index="default" type="array">
-			<label index="mlang_tabs_tab">Send SMS Widget</label>
+			<label index="mlang_tabs_tab">DG: Send SMS</label>
 			<label index="mlang_labels_tablabel">Send SMS</label>
 		</languageKey>
 		<languageKey index="de" type="array">
-			<label index="mlang_tabs_tab">Send SMS Widget</label>
+			<label index="mlang_tabs_tab">DG: Send SMS</label>
 			<label index="mlang_labels_tablabel">Send SMS</label>
 		</languageKey>
 	</data>
