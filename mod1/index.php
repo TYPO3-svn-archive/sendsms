@@ -30,15 +30,18 @@
  *
  *
  *
- *   63: class  tx_sendsms_module1 extends t3lib_SCbase
- *   71:     function init()
- *   88:     function menuConfig()
- *  107:     function selectedMonth($s)
- *  126:     function main()
- *  196:     function printContent()
- *  207:     function moduleContent()
+ *   65: class  tx_sendsms_module1 extends t3lib_SCbase
+ *   74:     function init()
+ *   90:     function menuConfig()
+ *  110:     function selectedMonth($s)
+ *  129:     function main()
+ *  162:     function jumpToUrl(URL)
+ *  233:     function printContent()
+ *  245:     function addMessage($text, $caption, $type)
+ *  263:     function errorMaker($name, $response)
+ *  280:     function moduleContent()
  *
- * TOTAL FUNCTIONS: 6
+ * TOTAL FUNCTIONS: 9
  * (This index is automatically created/updated by the extension "extdeveval")
  *
  */
@@ -62,12 +65,12 @@ require_once('class.tx_sendsms_diagramm.php');
 class  tx_sendsms_module1 extends t3lib_SCbase {
 	var $pageinfo;
 	var $extKey = 'sendsms';	// The extension key.
-	
+
 	/**
-	* Initializes the Module
-	*
-	* @return	void
-	*/
+	 * Initializes the Module
+	 *
+	 * @return	void
+	 */
 	function init()	{
 		global $BE_USER,$LANG,$BACK_PATH,$TCA_DESCR,$TCA,$CLIENT,$TYPO3_CONF_VARS;
 
@@ -80,10 +83,10 @@ class  tx_sendsms_module1 extends t3lib_SCbase {
 	}
 
 	/**
-	* Adds items to the ->MOD_MENU array. Used for the function menu selector.
-	*
-	* @return	void
-	*/
+	 * Adds items to the ->MOD_MENU array. Used for the function menu selector.
+	 *
+	 * @return	void
+	 */
 	function menuConfig()	{
 		global $LANG;
 		$this->MOD_MENU = Array (
@@ -99,11 +102,11 @@ class  tx_sendsms_module1 extends t3lib_SCbase {
 	}
 
 	/**
-	* Returns content for HTML Form's element "select" filled with months
-	*
-	* @param	int		$s:	selected month index (1-12)
-	* @return	string		with tags "option"
-	*/
+	 * Returns content for HTML Form's element "select" filled with months
+	 *
+	 * @param	int		$s:	selected month index (1-12)
+	 * @return	string		with tags "option"
+	 */
 	function selectedMonth($s) {
 		global $LANG;
 		$retValue='';
@@ -118,11 +121,11 @@ class  tx_sendsms_module1 extends t3lib_SCbase {
 	}
 
 	/**
-	* Main function of the module. Write the content to $this->content
-	* If you chose "web" as main module, you will need to consider the $this->id parameter which will contain the uid-number of the page clicked in the page tree
-	*
-	* @return	void		...
-	*/
+	 * Main function of the module. Write the content to $this->content
+	 * If you chose "web" as main module, you will need to consider the $this->id parameter which will contain the uid-number of the page clicked in the page tree
+	 *
+	 * @return	void		...
+	 */
 	function main()	{
 		global $BE_USER,$LANG,$BACK_PATH,$TCA_DESCR,$TCA,$CLIENT,$TYPO3_CONF_VARS;
 
@@ -131,114 +134,95 @@ class  tx_sendsms_module1 extends t3lib_SCbase {
 		$this->pageinfo = t3lib_BEfunc::readPageAccess($this->id,$this->perms_clause);
 		$access = is_array($this->pageinfo) ? 1 : 0;
 
+		// initialize doc
+		$this->doc = t3lib_div::makeInstance('template');
+		$this->doc->setModuleTemplate(t3lib_extMgm::extPath('sendsms') . 'mod1/mod_template.html');
+		$this->doc->backPath = $BACK_PATH;
+		$docHeaderButtons = $this->getButtons();
+		//$this->
 		if (($this->id && $access) || ($BE_USER->user['admin'] && !$this->id))	{
+			// Draw the form
+			$this->doc->form = '<form action="" method="post" enctype="multipart/form-data">';
 
-			// Draw the header.
-			$this->doc = t3lib_div::makeInstance('template');
-			$this->doc->backPath = $BACK_PATH;
-			$this->doc->form = '<div class="typo3-fullDoc">' .
-			'<div id="typo3-docheader">' .
-				'<div id="typo3-docheader-row1">' .
-					'<div class="buttonsleft"></div>' .
-					'<div class="buttonsright">';
-							// ShortCut
-							if ($BE_USER->mayMakeShortcut()) {
-								$this->doc->form .= $this->doc->makeShortcutIcon('id', implode(',', array_keys($this->MOD_MENU)), $this->MCONF['name']);
-							}
-$this->doc->form .= '</div>' .
-				'</div>' .
-				'<div id="typo3-docheader-row2">' .
-					'<div class="docheader-row2-left">' .
-						'<div class="docheader-funcmenu">';
-							// Control
-							$this->doc->form .= '<form action="" method="post" enctype="multipart/form-data">';
-							// JavaScript
-							$this->doc->JScode = '
-								<script language="javascript" type="text/javascript">
-									script_ended = 0;
-									function jumpToUrl(URL)	{
-										document.location = URL;
-									}
-								</script>
-								';
-							$this->doc->postCode='
-								<script language="javascript" type="text/javascript">
-									script_ended = 1;
-									if (top.fsMod) top.fsMod.recentIds["web"] = 0;
-								</script>
-								';
-							$this->doc->form .= $this->doc->funcMenu('', t3lib_BEfunc::getFuncMenu($this->id,'SET[function]', $this->MOD_SETTINGS['function'], $this->MOD_MENU['function']));
-							$this->doc->form .= '</form>' . 
-						'</div>' .
-					'</div>' .
-					'<div class="docheader-row2-right"></div>' .
-				'</div>' .
-			'</div>';
-			
-			$this->content .= $this->doc->startPage($LANG->getLL('title'));
-			$this->content .= '<div id="typo3-docbody"><div id="typo3-inner-docbody">';
-			$this->content .= $this->doc->header($LANG->getLL('title'));
-			$this->content .= $this->doc->spacer(5);
-			$this->content .= $LANG->getLL('important_links') . ' ';
-			$this->content .= '<a href="http://www.developergarden.com" style="color:green;" target="_blank">Developer Garden</a> & ';
-			$this->content .= '<a href="http://www.developercenter.telekom.com" style="color:#E20074;" target="_blank">Developer Center</a><br />';
-			$this->content .= $this->doc->spacer(5);
-			$this->content .= $this->doc->divider(5);
-			
+			// JavaScript
+			$this->doc->JScode = '
+				<script language="javascript" type="text/javascript">
+					script_ended = 0;
+					function jumpToUrl(URL)	{
+						document.location = URL;
+					}
+				</script>
+			';
+			$this->doc->postCode='
+				<script language="javascript" type="text/javascript">
+					script_ended = 1;
+					if (top.fsMod) top.fsMod.recentIds["web"] = 0;
+				</script>
+			';
 			// Render content:
 			$this->moduleContent();
-			
-			$this->content .= '</div></div></div>';
-			
+
 		} else {
 			// If no access or if ID == zero
-			// Draw the header.
-			$this->doc = t3lib_div::makeInstance('template');
-			$this->doc->backPath = $BACK_PATH;
-			$this->doc->form = '<div class="typo3-fullDoc">' .
-				'<div id="typo3-docheader">' .
-					'<div id="typo3-docheader-row1">' .
-						'<div class="buttonsleft"></div>' .
-						'<div class="buttonsright"></div>' . 
-					'</div>' . 
-					'<div id="typo3-docheader-row2">' .
-						'<div class="docheader-row2-left"></div>' . 
-						'<div class="docheader-row2-right"></div>' .
-					'</div>' .
-				'</div>';
-			$this->content .= $this->doc->startPage($LANG->getLL('title'));
-			$this->content .= '<div id="typo3-docbody"><div id="typo3-inner-docbody">';
-			$this->content .= $this->doc->header($LANG->getLL('title'));
-			$this->content .= $this->doc->spacer(5);
-			$this->content .= $LANG->getLL('important_links') . ' ';
-			$this->content .= '<a href="http://www.developergarden.com" style="color:green;" target="_blank">Developer Garden</a> & ';
-			$this->content .= '<a href="http://www.developercenter.telekom.com" style="color:#E20074;" target="_blank">Developer Center</a><br />';
-			$this->content .= $this->doc->spacer(5);
-			$this->content .= $this->doc->divider(5);
-			
-			$this->content .= '<span class="t3-icon t3-icon-status t3-icon-status-status t3-icon-status-permission-denied">&nbsp;</span><span style="vertical-align:bottom;">' . $LANG->getLL('access_denied') . '</span>';
-			
-			$this->content .= '</div></div></div>';
+			$docHeaderButtons['save'] = '';
+			$this->content.=$this->doc->spacer(10);
 		}
+		
+		// compile document
+		$markers['FUNC_MENU'] = t3lib_BEfunc::getFuncMenu(0, 'SET[function]', $this->MOD_SETTINGS['function'], $this->MOD_MENU['function']);
+		$markers['CONTENT'] = $this->content;
+
+				// Build the <body> for the module
+		$this->content = $this->doc->startPage($LANG->getLL('title'));
+		$this->content.= $this->doc->moduleBody($this->pageinfo, $docHeaderButtons, $markers);
+		$this->content.= $this->doc->endPage();
+		$this->content = $this->doc->insertStylesAndJS($this->content);
 	}
 
 	/**
-	* Prints out the module HTML
-	*
-	* @return	void
-	*/
+	 * Create the panel of buttons for submitting the form or otherwise perform operations.
+	 *
+	 * @return	array	all available buttons as an assoc. array
+	 */
+	protected function getButtons()	{
+
+		$buttons = array(
+			'csh' => '',
+			'shortcut' => '',
+			'save' => ''
+		);
+			// CSH
+		$buttons['csh'] = t3lib_BEfunc::cshItem('_MOD_web_func', '', $GLOBALS['BACK_PATH']);
+
+			// SAVE button
+		//$buttons['save'] = '<input type="image" class="c-inputButton" name="submit" value="Update"' . t3lib_iconWorks::skinImg($GLOBALS['BACK_PATH'], 'gfx/savedok.gif', '') . ' title="' . $GLOBALS['LANG']->sL('LLL:EXT:lang/locallang_core.php:rm.saveDoc', 1) . '" />';
+
+
+			// Shortcut
+		if ($GLOBALS['BE_USER']->mayMakeShortcut())	{
+			$buttons['shortcut'] = $this->doc->makeShortcutIcon('', 'function', $this->MCONF['name']);
+		}
+
+		return $buttons;
+	}
+	
+	/**
+	 * Prints out the module HTML
+	 *
+	 * @return	void
+	 */
 	function printContent() {
 		$this->content.=$this->doc->endPage();
 		echo $this->content;
 	}
 	/**
-	* Adds a new Typo3 Flash message in queue and returns all messages
-	*
-	* @param	string		$text:	message's text
-	* @param	string		$caption:	message's caption
-	* @param	string		$type:	message's type (t3lib_FlashMessage::NOTICE, INFO, OK, WARNING, ERROR)
-	* @return	string		rendered message queue
-	*/
+	 * Adds a new Typo3 Flash message in queue and returns all messages
+	 *
+	 * @param	string		$text:	message's text
+	 * @param	string		$caption:	message's caption
+	 * @param	string		$type:	message's type (t3lib_FlashMessage::NOTICE, INFO, OK, WARNING, ERROR)
+	 * @return	string		rendered message queue
+	 */
 	function addMessage($text, $caption, $type) {
 		$flashMessage = t3lib_div::makeInstance(
 			't3lib_FlashMessage',
@@ -249,7 +233,14 @@ $this->doc->form .= '</div>' .
 		t3lib_FlashMessageQueue::addMessage($flashMessage);
 		return '<div style="width:468px;">' . t3lib_FlashMessageQueue::renderFlashMessages() . '</div>';
 	}
-	
+
+	/**
+	 * Constructs error message from response
+	 *
+	 * @param	string		$name: name of method
+	 * @param	object		$response: Telekom API response
+	 * @return	string		html string with error message
+	 */
 	function errorMaker($name, $response) {
 		$errorMessage  = 'The invocation of ' . $name . ' was not successful.<br />';
 		$errorMessage .= 'The error code is: ' . $response->getStatus()->getStatusCode() . '<br />';
@@ -261,14 +252,24 @@ $this->doc->form .= '</div>' .
 		}
 		return $errorMessage;
 	}
-	
+
 	/**
-	* Generates the module content
-	*
-	* @return	void
-	*/
+	 * Generates the module content
+	 *
+	 * @return	void
+	 */
 	function moduleContent() {
 		global $LANG;
+		
+		// DG Header
+		$content = $this->doc->spacer(4);
+		$content .= $LANG->getLL('important_links') . ' ';
+		$content .= '<a href="http://www.developergarden.com" style="color:green;" target="_blank">Developer Garden</a> & ';
+		$content .= '<a href="http://www.developercenter.telekom.com" style="color:#E20074;" target="_blank">Developer Center</a><br />';
+		$content .= '<h3 class="uppercase"></h3>';
+		//$content .= $this->doc->divider(6);
+		
+		// Pages
 		switch((string)$this->MOD_SETTINGS['function'])	{
 			case 1:
 				// fe_users
@@ -321,23 +322,23 @@ $this->doc->form .= '</div>' .
 				foreach ($rows as $row)	{
 					$arr[$row['sms_hour']] = round($row['COUNT(sms_id)'] * 100 / $max);
 				}
-				
+
 				$diagramm = t3lib_div::makeInstance('tx_sendsms_diagramm');
 				$diagramm->value_text = '';
 
 				$registry = t3lib_div::makeInstance('t3lib_Registry');
 				$count = $registry->get('tx_' . $this->extKey, 'sms', 0);
-				
-				$content = '<b>' . $LANG->getLL('number_of_users') . '</b><br />' .
-					'<br />' . $LANG->getLL('website_users') . ' ' . $countFeUsers . 
-					'<br />' . $LANG->getLL('one_sms') . ' ' . $countSmsFeUsers . 
-					'<br />' . $LANG->getLL('only_visit') . ' ' . ($countVisitFeUsers-$countSmsFeUsers) . 
-					'<br />' . $LANG->getLL('general_number_sms') . ' ' . $count . 
-					'<br />' . $LANG->getLL('average_sms') . ' ' . (($countSmsFeUsers > 0) ? $count/$countSmsFeUsers : 0 ) . 
+
+				$content .= '<b>' . $LANG->getLL('number_of_users') . '</b><br />' .
+					'<br />' . $LANG->getLL('website_users') . ' ' . $countFeUsers .
+					'<br />' . $LANG->getLL('one_sms') . ' ' . $countSmsFeUsers .
+					'<br />' . $LANG->getLL('only_visit') . ' ' . ($countVisitFeUsers-$countSmsFeUsers) .
+					'<br />' . $LANG->getLL('general_number_sms') . ' ' . $count .
+					'<br />' . $LANG->getLL('average_sms') . ' ' . (($countSmsFeUsers > 0) ? $count/$countSmsFeUsers : 0 ) .
 					'<h3 class="uppercase"></h3>'.
 					'<div style="width=468px;text-align:center;position:absolute;"><strong>' .
 					$LANG->getLL('diagram1') . '</strong>' . $diagramm->draw($arr) . '</div>';
-				
+
 				$this->content .= $this->doc->section($LANG->getLL('header1'), $content, 0, 1);
 				break;
 			case 2:
@@ -400,16 +401,16 @@ $this->doc->form .= '</div>' .
 				$diagramm->ly = $ly;
 				$diagramm->value_text = '';
 				$diagramm->axis_y_text = 'sms';
-				
-				$content='<div style="width=468px;text-align:center;position:absolute;"><strong>' . $LANG->getLL('diagram2') . '</strong>' . 
+
+				$content .= '<div style="width=468px;text-align:center;position:absolute;"><strong>' . $LANG->getLL('diagram2') . '</strong>' .
 					$diagramm->draw($arr) . '<br />' .
 					'<form>' .
-					'<select name=month>' . $this->selectedMonth($month) . '</select>&nbsp;' . 
+					'<select name=month>' . $this->selectedMonth($month) . '</select>&nbsp;' .
 					'<input type="text" name="year" maxlength=4 size=4 value="' . $year . '" />&nbsp;' .
 					'<input type="submit" value="' . $LANG->getLL('fuction2_button') . '"/>' .
 					'</form>' .
 					'</div>';
-				
+
 				$this->content .= $this->doc->section($LANG->getLL('header2'), $content, 0, 1);
 				break;
 			case 3:
@@ -463,14 +464,14 @@ $this->doc->form .= '</div>' .
 					'5'
 				);
 
-				$content = '<div style="width=468px;text-align:center;position:absolute;"><strong>' . $LANG->getLL('diagram3') . '</strong>';
+				$content .= '<div style="width=468px;text-align:center;position:absolute;"><strong>' . $LANG->getLL('diagram3') . '</strong>';
 				$content .= $diagramm->draw($arr, $names, $r).'</div>';
-				
+
 				$this->content .= $this->doc->section($LANG->getLL('header3'), $content, 0, 1);
 				break;
 			case 4:
 				// HTML Form Developer Center: login, password, proxy
-				$content = $this->addMessage($LANG->getLL('validation_text'), $LANG->getLL('validation_capture'), t3lib_FlashMessage::INFO) . 
+				$content .= $this->addMessage($LANG->getLL('validation_text'), $LANG->getLL('validation_capture'), t3lib_FlashMessage::INFO) .
 					'<h3 class="uppercase">' . $LANG->getLL('dcaccount') . '</h3>' .
 					'<form method="POST">' .
 					'<label for="devcenterlogin">' . $LANG->getLL('dclogin') . '</label><br />' .
@@ -504,7 +505,7 @@ $this->doc->form .= '</div>' .
 					$ok = TRUE;
 					// Constructs the Telekom client using the user name and password.
 					try {
-						$client = new SmsValidationClient('production', $username, $password); 
+						$client = new SmsValidationClient('production', $username, $password);
 						if ($proxy) {
 							$client->use_additional_curl_options(array(CURLOPT_PROXY => $proxy));
 						}
@@ -569,7 +570,7 @@ $this->doc->form .= '</div>' .
 						try {
 							// Validates the number using the validation key
 							$validationResponse = $client->validate($number, $key);
-							
+
 							// Test, if the invocation of validate() was successful.
 							if(!($validationResponse->getStatus()->getStatusConstant() == SmsValidationStatusConstants::SUCCESS)) {
 								throw new Exception($this->errorMaker('validate()', $validationResponse));
@@ -604,7 +605,7 @@ $this->doc->form .= '</div>' .
 					$ok = TRUE;
 					// Constructs the Telekom client using the user name and password.
 					try {
-						$client = new SmsValidationClient('production', $username, $password); 
+						$client = new SmsValidationClient('production', $username, $password);
 						if ($proxy) {
 							$client->use_additional_curl_options(array(CURLOPT_PROXY => $proxy));
 						}
@@ -654,7 +655,7 @@ $this->doc->form .= '</div>' .
 					$ok = TRUE;
 					// Constructs the Telekom client using the user name and password.
 					try {
-						$client = new SmsValidationClient('production', $username, $password); 
+						$client = new SmsValidationClient('production', $username, $password);
 						if ($proxy) {
 							$client->use_additional_curl_options(array(CURLOPT_PROXY => $proxy));
 						}
@@ -690,12 +691,12 @@ $this->doc->form .= '</div>' .
 				$this->content.=$this->doc->section($LANG->getLL('header4'), $content, 0, 1);
 				break;
 			case 5:
-				$content = $this->addMessage($LANG->getLL('tools_text'), $LANG->getLL('tools_capture'), t3lib_FlashMessage::INFO) . 
+				$content .= $this->addMessage($LANG->getLL('tools_text'), $LANG->getLL('tools_capture'), t3lib_FlashMessage::INFO) .
 					'<br />' .
 					'<form method="POST">' .
 					'<input type="checkbox" id="count" name="count" value="ok" style="vertical-align:middle;" /> <label for="count">'.$LANG->getLL('setting1').'</label>' .
-					'<br /><br />' . 
-					'<input type="submit" value="Start" />' . 
+					'<br /><br />' .
+					'<input type="submit" value="Start" />' .
 					'</form><br />';
 				// Update "count of sms" registry entry
 				if ($_POST['count']) {

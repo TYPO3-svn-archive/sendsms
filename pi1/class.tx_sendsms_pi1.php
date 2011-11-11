@@ -133,7 +133,7 @@ class tx_sendsms_pi1 extends tslib_pibase {
 		if (!$this->ff['SendWithoutSignUp']) {
 			$feUserId = $GLOBALS['TSFE']->fe_user->user['uid'];
 		}
-			if (($feUserId == 0) && !$this->ff['SendWithoutSignUp']) {
+		if (($feUserId == 0) && (!$this->ff['SendWithoutSignUp'])) {
 			$this->markerArray['###SPN_DISABLED###'] = htmlspecialchars($this->pi_getLL('form_login'));
 			$this->markerArray['###LBL_RECIPIENTS###'] = htmlspecialchars($this->pi_getLL('form_phone'));
 			$subpart = $this->cObj->getSubpart($this->templateHtml, '###DISABLED_FORM###');
@@ -928,7 +928,7 @@ class tx_sendsms_pi1 extends tslib_pibase {
 		if ($matches[0]) {
 			$c = count($matches[0]);
 		}
-		return strlen($text) + $c - substr_count($text,'€') * 2;
+		return strlen($text) + $c - substr_count($text, '€') * 2;
 	}
 
 	/**
@@ -1094,13 +1094,13 @@ class tx_sendsms_pi1 extends tslib_pibase {
 	 */
 	private function addCssAndJs() {
 		$css = '<link rel="stylesheet" type="text/css" href="' .
-			t3lib_extMgm::siteRelPath($this->extKey) . 'res/tx_' . $this->extKey . '_style.css" />';
+			t3lib_extMgm::siteRelPath($this->extKey) . 'pi1/css/tx_' . $this->extKey . '_style.css" />';
 		if($GLOBALS['TSFE']->additionalHeaderData[$this->prefixId]){
 			$GLOBALS['TSFE']->additionalHeaderData[$this->prefixId] .= $css;
 		} else {
 			$GLOBALS['TSFE']->additionalHeaderData[$this->prefixId] = $css;
 		}
-		$GLOBALS['TSFE']->additionalHeaderData[$this->prefixId].= '<script src="'.t3lib_extMgm::siteRelPath($this->extKey).'/pi1/js/tx_' . $this->extKey . '_pi1.js" /></script>';
+		$GLOBALS['TSFE']->additionalHeaderData[$this->prefixId].= '<script src="'.t3lib_extMgm::siteRelPath($this->extKey).'pi1/js/tx_' . $this->extKey . '_pi1.js" /></script>';
 	}
 
 	/**
