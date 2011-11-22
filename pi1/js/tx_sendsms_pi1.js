@@ -24,7 +24,6 @@
 *
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
-
 function morePhones() {
 	var phone = document.getElementById("tx_sendsms_pi1_phone");
 	var inputSize = document.getElementById("tx_sendsms_pi1_inputsize");

@@ -31,10 +31,10 @@
  *
  *
  *   43: class  tx_sendsms_diagramm
- *   81:     function filledRectangle($x1 ,$y1 ,$x2, $y2, $color)
- *   95:     function line($x1 ,$y1 ,$x2, $y2, $color)
- *  114:     function text($size, $x1 ,$y1, $text, $color)
- *  126:     function draw($arr, $names = null, $values = null)
+ *  103:     protected function filledRectangle($x1 ,$y1 ,$x2, $y2, $color)
+ *  117:     protected function line($x1 ,$y1 ,$x2, $y2, $color)
+ *  136:     protected function text($size, $x1 ,$y1, $text, $color)
+ *  148:     public function draw($arr, $names = null, $values = null)
  *
  * TOTAL FUNCTIONS: 4
  * (This index is automatically created/updated by the extension "extdeveval")
@@ -105,7 +105,7 @@ class  tx_sendsms_diagramm {
 	}
 
 	/**
-	 * Draws a line on diagram, only vertical or horizontal 
+	 * Draws a line on diagram, only vertical or horizontal
 	 *
 	 * @param	int		$x1: x left top corner
 	 * @param	int		$y1: y left top corner
@@ -143,7 +143,7 @@ class  tx_sendsms_diagramm {
 	 * @param	array		$arr: An array with data for diagram
 	 * @param	array		$names: An array with names for axis X
 	 * @param	array		$values: An array with data displaying above the columns
-	 * @return	string		diagram's html code 
+	 * @return	string		diagram's html code
 	 */
 	public function draw($arr, $names = null, $values = null) {
 		// Public variables to local variables (I don't whant to write always '$this->')

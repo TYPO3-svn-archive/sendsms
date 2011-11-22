@@ -32,36 +32,36 @@
  *
  *   88: class tx_sendsms_pi1 extends tslib_pibase
  *  106:     public function main($content, $conf)
- *  221:     private function init($conf)
- *  240:     private function getFlexFormValues($flexFormSheets)
- *  255:     private function setBaseSettings()
- *  278:     private function createMarkerArray()
- *  324:     private function getOkMessage()
- *  337:     private function insertPostVariables()
- *  349:     private function insertJsValues()
- *  369:     private function insertResultForm()
- *  384:     private function insertCaptcha()
- *  409:     private function insertIntoSubpart($subpartName, $labelName, $text, $array = NULL)
- *  428:     private function insertStartForm()
- *  566:     private function testInputValues()
- *  635:     private function createTelekomClient()
- *  656:     private function sendSms($feUserId, $client)
- *  706:     private function updateStatistics($feUserId)
- *  732:     private function testEnoughSms($feUserId)
- *  819:     private function testCharactersCount()
- *  839:     private function dbGetCountOfSms($feUserId)
- *  861:     private function dbAddUserInTable($feUserId, $periodStart, $periodEnd)
- *  885:     private function dbAddSmsInTable($feUserId, $smsSent, $smsSentInPeriod, $periodStart, $periodEnd)
- *  906:     private function dbAddInStatistics($now, $length)
- *  926:     private function countChars($text)
- *  941:     private function countSms($text)
- *  956:     private function validateNumber($text)
- *  981:     private function validateAllNumbers($text, $codes = NULL)
- * 1013:     private function countPriceOfSms($arr)
- * 1047:     private function linkToDoc($text, $pageId, $pageAddParams)
- * 1067:     private function createErrorMessage($index, $value = NULL)
- * 1096:     private function addCssAndJs()
- * 1112:     private function setEnvironment()
+ *  222:     private function init($conf)
+ *  241:     private function getFlexFormValues($flexFormSheets)
+ *  260:     private function setBaseSettings()
+ *  283:     private function createMarkerArray()
+ *  329:     private function getOkMessage()
+ *  342:     private function insertPostVariables()
+ *  354:     private function insertJsValues()
+ *  374:     private function insertResultForm()
+ *  389:     private function insertCaptcha()
+ *  414:     private function insertIntoSubpart($subpartName, $labelName, $text, $array = NULL)
+ *  433:     private function insertStartForm()
+ *  571:     private function testInputValues()
+ *  640:     private function createTelekomClient()
+ *  661:     private function sendSms($feUserId, $client)
+ *  711:     private function updateStatistics($feUserId)
+ *  737:     private function testEnoughSms($feUserId)
+ *  824:     private function testCharactersCount()
+ *  844:     private function dbGetCountOfSms($feUserId)
+ *  866:     private function dbAddUserInTable($feUserId, $periodStart, $periodEnd)
+ *  890:     private function dbAddSmsInTable($feUserId, $smsSent, $smsSentInPeriod, $periodStart, $periodEnd)
+ *  911:     private function dbAddInStatistics($now, $length)
+ *  931:     private function countChars($text)
+ *  946:     private function countSms($text)
+ *  961:     private function validateNumber($text)
+ *  986:     private function validateAllNumbers($text, $codes = NULL)
+ * 1018:     private function countPriceOfSms($arr)
+ * 1052:     private function linkToDoc($text, $pageId, $pageAddParams)
+ * 1072:     private function createErrorMessage($index, $value = NULL)
+ * 1101:     private function addCssAndJs()
+ * 1117:     private function setEnvironment()
  *
  * TOTAL FUNCTIONS: 31
  * (This index is automatically created/updated by the extension "extdeveval")
@@ -79,9 +79,9 @@ require_once(dirname(__FILE__) . '/../lib/sdk/sendsms/data/SendSmsStatusConstant
 require_once('class.tx_sendsms_callingcodes.php');
 
 /**
- * Plugin 'Developer Garden: Send SMS' for the 'sendsms' extension.
+ * Plugin 'SMS via Telekom API' for the 'sendsms' extension.
  *
- * @author	Alexander Kraskov <alexander.kraskov@telekom.de>
+ * @author	Alexander Kraskov <t3extensions@developergarden.com>
  * @package	TYPO3
  * @subpackage	tx_sendsms
  */
@@ -110,6 +110,8 @@ class tx_sendsms_pi1 extends tslib_pibase {
 		// Add links to CSS ad JS into page
 		$this->addCssAndJs();
 
+
+
 		// Load values from FlexForm
 		$this->getFlexFormValues($this->cObj->data['pi_flexform']['data']);
 
@@ -133,7 +135,7 @@ class tx_sendsms_pi1 extends tslib_pibase {
 		if (!$this->ff['SendWithoutSignUp']) {
 			$feUserId = $GLOBALS['TSFE']->fe_user->user['uid'];
 		}
-		if (($feUserId == 0) && (!$this->ff['SendWithoutSignUp'])) {
+			if (($feUserId == 0) && !$this->ff['SendWithoutSignUp']) {
 			$this->markerArray['###SPN_DISABLED###'] = htmlspecialchars($this->pi_getLL('form_login'));
 			$this->markerArray['###LBL_RECIPIENTS###'] = htmlspecialchars($this->pi_getLL('form_phone'));
 			$subpart = $this->cObj->getSubpart($this->templateHtml, '###DISABLED_FORM###');
@@ -197,7 +199,7 @@ class tx_sendsms_pi1 extends tslib_pibase {
 								// Successfully
 								$GLOBALS["TSFE"]->fe_user->setKey('ses', $this->extKey . '_sms_sent', TRUE);
 								$GLOBALS["TSFE"]->fe_user->storeSessionData();
-								$this->updateStatistics();
+								$this->updateStatistics($feUserId);
 								$this->insertResultForm();
 								$this->markerArray['###SPN_STATUS###'] = $this->getOkMessage();
 								$subpart = $this->cObj->getSubpart($this->templateHtml, '###RESULT_FORM###');
@@ -238,10 +240,14 @@ class tx_sendsms_pi1 extends tslib_pibase {
 	 */
 	private function getFlexFormValues($flexFormSheets) {
 		$this->ff = array();
-		foreach ($flexFormSheets as $sheet) {
-			foreach ($sheet['lDEF'] as $key => $value)
-			{
-				$this->ff[$key] = $value['vDEF'];
+		foreach ($flexFormSheets as $key => $sheet) {
+			if (strlen($key) > 3) {
+				if (substr($key, 0, 3) == 'sms') {
+					foreach ($sheet['lDEF'] as $key => $value)
+					{
+						$this->ff[$key] = $value['vDEF'];
+					}
+				}
 			}
 		}
 	}
@@ -928,7 +934,7 @@ class tx_sendsms_pi1 extends tslib_pibase {
 		if ($matches[0]) {
 			$c = count($matches[0]);
 		}
-		return strlen($text) + $c - substr_count($text, '€') * 2;
+		return strlen($text) + $c - substr_count($text,'€') * 2;
 	}
 
 	/**
@@ -1094,13 +1100,13 @@ class tx_sendsms_pi1 extends tslib_pibase {
 	 */
 	private function addCssAndJs() {
 		$css = '<link rel="stylesheet" type="text/css" href="' .
-			t3lib_extMgm::siteRelPath($this->extKey) . 'pi1/css/tx_' . $this->extKey . '_style.css" />';
+			t3lib_extMgm::siteRelPath($this->extKey) . 'res/tx_' . $this->extKey . '_style.css" />';
 		if($GLOBALS['TSFE']->additionalHeaderData[$this->prefixId]){
 			$GLOBALS['TSFE']->additionalHeaderData[$this->prefixId] .= $css;
 		} else {
 			$GLOBALS['TSFE']->additionalHeaderData[$this->prefixId] = $css;
 		}
-		$GLOBALS['TSFE']->additionalHeaderData[$this->prefixId].= '<script src="'.t3lib_extMgm::siteRelPath($this->extKey).'pi1/js/tx_' . $this->extKey . '_pi1.js" /></script>';
+		$GLOBALS['TSFE']->additionalHeaderData[$this->prefixId].= '<script src="'.t3lib_extMgm::siteRelPath($this->extKey).'/pi1/js/tx_' . $this->extKey . '_pi1.js" /></script>';
 	}
 
 	/**

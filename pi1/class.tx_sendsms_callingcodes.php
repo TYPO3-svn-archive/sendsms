@@ -31,11 +31,11 @@
  *
  *
  *   44: class  tx_sendsms_callingcodes
- *   81:     function removeSpecialSymbols($text)
- *  103:     function test($number, $c, $arr)
- *  121:     function getCallingCode($number)
- *  154:     function test2($code, $c, $arr)
- *  172:     function getTarifzone($code)
+ *   81:     protected function removeSpecialSymbols($text)
+ *  103:     protected function test($number, $c, $arr)
+ *  123:     public function getCallingCode($number)
+ *  156:     protected function test2($code, $c, $arr)
+ *  174:     public function getTarifzone($code)
  *
  * TOTAL FUNCTIONS: 5
  * (This index is automatically created/updated by the extension "extdeveval")

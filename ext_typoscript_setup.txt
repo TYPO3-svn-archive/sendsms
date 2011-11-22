@@ -1,5 +1,5 @@
 plugin.tx_sendsms_pi1 {
-	templateFile = EXT:sendsms/pi1/templates/template.html
+	templateFile = EXT:sendsms/template.html
 	textarea_rows = 10
 	textarea_cols = 53
 	phone_input_min = 20
