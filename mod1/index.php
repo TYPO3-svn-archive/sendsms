@@ -58,7 +58,7 @@ require_once('class.tx_sendsms_diagramm.php');
 /**
  * Module 'Send SMS T3 Extension' for the 'sendsms' extension.
  *
- * @author	Alexander Kraskov <alexander.kraskov@telekom.de>
+ * @author	Alexander Kraskov <t3extensions@developergarden.com>
  * @package	TYPO3
  * @subpackage	tx_sendsms
  */
@@ -254,11 +254,11 @@ $this->doc->form .= '</div>' .
 	}
 
 	/**
-	 * [Describe function...]
+	 * Prepares error text from Telekom Client response
 	 *
-	 * @param	[type]		$name: ...
-	 * @param	[type]		$response: ...
-	 * @return	[type]		...
+	 * @param	string		$name: name of function
+	 * @param	object		$response: Telekom Client response
+	 * @return	string		...
 	 */
 	function errorMaker($name, $response) {
 		$errorMessage  = 'The invocation of ' . $name . ' was not successful.<br />';
@@ -410,10 +410,10 @@ $this->doc->form .= '</div>' .
 				$diagramm->ly = $ly;
 				$diagramm->value_text = '';
 				$diagramm->axis_y_text = 'sms';
-
+				$diagramm->write_x0 = FALSE;
 				$content='<div style="width=468px;text-align:center;position:absolute;"><strong>' . $LANG->getLL('diagram2') . '</strong>' .
 					$diagramm->draw($arr) . '<br />' .
-					'<form>' .
+					'<form method="POST">' .
 					'<select name=month>' . $this->selectedMonth($month) . '</select>&nbsp;' .
 					'<input type="text" name="year" maxlength=4 size=4 value="' . $year . '" />&nbsp;' .
 					'<input type="submit" value="' . $LANG->getLL('fuction2_button') . '"/>' .

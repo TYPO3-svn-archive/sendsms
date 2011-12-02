@@ -31,14 +31,22 @@
  *
  *
  *   43: class  tx_sendsms_diagramm
- *  103:     protected function filledRectangle($x1 ,$y1 ,$x2, $y2, $color)
- *  117:     protected function line($x1 ,$y1 ,$x2, $y2, $color)
- *  136:     protected function text($size, $x1 ,$y1, $text, $color)
- *  148:     public function draw($arr, $names = null, $values = null)
+ *   81:     function filledRectangle($x1 ,$y1 ,$x2, $y2, $color)
+ *   95:     function line($x1 ,$y1 ,$x2, $y2, $color)
+ *  114:     function text($size, $x1 ,$y1, $text, $color)
+ *  126:     function draw($arr, $names = null, $values = null)
  *
  * TOTAL FUNCTIONS: 4
  * (This index is automatically created/updated by the extension "extdeveval")
  *
+ */
+
+/**
+ * Draws charts with HTML for the 'sendsms' and other Developer Garden extension.
+ *
+ * @author	Alexander Kraskov <t3extensions@developergarden.com>
+ * @package	TYPO3
+ * @subpackage	tx_sendsms_diagramm
  */
 class  tx_sendsms_diagramm {
 	/** diagram's width (main div) */
@@ -87,63 +95,20 @@ class  tx_sendsms_diagramm {
 	public $axis_x_text = '';
 	/** y-axis' name */
 	public $axis_y_text = '%';
-	/** x-axis' name */
+	/** text for values */
 	public $value_text = '%';
-
-	/**
-	 * Draws a filled rectangle
-	 *
-	 * @param	int		$x1: x left top corner
-	 * @param	int		$y1: y left top corner
-	 * @param	int		$x2: x right bottom corner
-	 * @param	int		$y2: y right bottom corner
-	 * @param	stirng		$color: css color
-	 * @return	string		div
-	 */
-	protected function filledRectangle($x1 ,$y1 ,$x2, $y2, $color) {
-		return '<div style="position:absolute;left:'.$x1.'px;top:'.$y1.'px;width:'.($x2-$x1).'px;height:'.($y2-$y1).'px;background:'.$color.';"></div>';
-	}
-
-	/**
-	 * Draws a line on diagram, only vertical or horizontal
-	 *
-	 * @param	int		$x1: x left top corner
-	 * @param	int		$y1: y left top corner
-	 * @param	int		$x2: x right bottom corner
-	 * @param	int		$y2: y right bottom corner
-	 * @param	string		$color: css color
-	 * @return	string		thin div, 1px
-	 */
-	protected function line($x1 ,$y1 ,$x2, $y2, $color) {
-		if ($x1==$x2) {
-			return '<div style="position:absolute;left:'.$x1.'px;top:'.$y1.'px;width:1px;height:'.($y2-$y1).'px;background:'.$color.';"></div>';
-		}
-		if ($y1==$y2) {
-			return '<div style="position:absolute;left:'.$x1.'px;top:'.$y1.'px;width:'.($x2-$x1).'px;height:1px;background:'.$color.';"></div>';
-		}
-	}
-
-	/**
-	 * Writes a text on diagram, only horizontal
-	 *
-	 * @param	string		$size: font-size (css)
-	 * @param	int		$x1: x left top corner
-	 * @param	int		$y1: y left top corner
-	 * @param	int		$text: text
-	 * @param	int		$color: text color
-	 * @return	string		div with text
-	 */
-	protected function text($size, $x1 ,$y1, $text, $color)	{
-		return '<div style="position:absolute;left:'.$x1.'px;top:'.$y1.'px;"><span class="tx_sendsms_diagramm-text" style="color:'.$color.';font-size:'.$size.';">'.$text.'</span></div>';
-	}
-
+	/** flag to write 0 element of array on axis x*/
+	public $write_x0 = TRUE;
+	/** flag to write 0 element on axis y*/
+	public $write_y0 = TRUE;
+	
 	/**
 	 * Returns diagram
 	 *
 	 * @param	array		$arr: An array with data for diagram
 	 * @param	array		$names: An array with names for axis X
 	 * @param	array		$values: An array with data displaying above the columns
-	 * @return	string		diagram's html code
+	 * @return	string		diagram's html code 
 	 */
 	public function draw($arr, $names = null, $values = null) {
 		// Public variables to local variables (I don't whant to write always '$this->')
@@ -171,23 +136,27 @@ class  tx_sendsms_diagramm {
 		$axis_x_text = $this->axis_x_text;
 		$axis_y_text = $this->axis_y_text;
 		$value_text = $this->value_text;
+		$write_x0 = $this->write_x0;
+		$write_y0 = $this->write_y0;
 		// Diagram begin
 		$diagramm = '<div class="tx_sendsms_diagramm-border" style="border:1px solid black;width:' . $width . 'px;">';
-		$diagramm.= '<div class="tx_sendsms_diagramm-inhalt" style="position:relative;left:0px;top:0px;width:'.$width.'px;height:'.$height.'px;background:'.$colorBG.';">';
+		$diagramm.= '<div class="tx_sendsms_diagramm-inhalt" style="position:relative;left:0px;top:0px;width:' . $width . 'px;height:' . $height . 'px;background:' . $colorBG . ';">';
 		// Columns
 		for($x = 0; $x < $cx; $x++) {
 			// Writes names (captions) on x-axis
 			$diagramm .= $this->line($x0 + $x * $lx, $height - $y0, $x0 + $x * $lx, $height - $y0 + 5, $colorLine);
-			if ($names) {
-				$diagramm .= $this->text($font_size_n, $kx + $x0 - 3 + $x * $lx, $height - $y0 + 5,  $names[$x], $colorText);
-			} else {
-				if ($x < 10) {
-					$diagramm .= $this->text($font_size_x, $kx + $x0 - 3 + $x * $lx, $height - $y0+5,  $x, $colorText);
+			if (($x > 0) || ($x == 0 && $write_x0)) {
+				if ($names) {
+					$diagramm .= $this->text($font_size_n, $kx + $x0 - 3 + $x * $lx, $height - $y0 + 5,  $names[$x], $colorText);
 				} else {
-					$diagramm .= $this->text($font_size_x, $kx + $x0 - 6 + $x * $lx, $height - $y0+5,  $x, $colorText);
+					if ($x < 10) {
+						$diagramm .= $this->text($font_size_x, $kx + $x0 - 3 + $x * $lx, $height - $y0+5,  $x, $colorText);
+					} else {
+						$diagramm .= $this->text($font_size_x, $kx + $x0 - 6 + $x * $lx, $height - $y0+5,  $x, $colorText);
+					}
 				}
 			}
-			// Draws a new column (if it exists)
+			// Draws a new column (if it exists in array)
 			if ($arr[$x]) {
 				$diagramm .= $this->filledRectangle($x0 + 2 + $x * $lx, ceil($height - $y0 - $arr[$x] * $ly / $my), $x0 - 2 + $lx + $x * $lx, $height - $y0, $colorColumn);
 				$k = 0;
@@ -235,7 +204,9 @@ class  tx_sendsms_diagramm {
 		$diagramm .= $this->line($x0, $y0, $x0, $height - $y0, $colorLine);
 		for($x=0; $x < $cy; $x++) {
 			$diagramm .= $this->line($x0 - 5, $height - $y0 - $ly * $x, $x0, $height - $y0 - $ly * $x, $colorLine);
-			$diagramm .= $this->text($font_size_y, $x0 - 28, $height - 33 - $ly * $x, $x * $my, $colorText);
+			if (($x > 0) || ($x == 0 && $write_y0)) {
+				$diagramm .= $this->text($font_size_y, $x0 - 28, $height - 33 - $ly * $x, $x * $my, $colorText);
+			}
 		}
 		// Axes' names
 		$diagramm .= $this->text($font_size, $width - 25, $height - 20,  $axis_x_text, $colorText);
@@ -245,6 +216,53 @@ class  tx_sendsms_diagramm {
 		$diagramm .= '</div>';
 		// Ok
 		return $diagramm;
+	}
+	
+	/**
+	 * Draws a filled rectangle
+	 *
+	 * @param	int		$x1: x left top corner
+	 * @param	int		$y1: y left top corner
+	 * @param	int		$x2: x right bottom corner
+	 * @param	int		$y2: y right bottom corner
+	 * @param	stirng		$color: css color
+	 * @return	string		div
+	 */
+	protected function filledRectangle($x1 ,$y1 ,$x2, $y2, $color) {
+		return '<div style="position:absolute;left:'.$x1.'px;top:'.$y1.'px;width:'.($x2-$x1).'px;height:'.($y2-$y1).'px;background:'.$color.';"></div>';
+	}
+
+	/**
+	 * Draws a line on diagram, only vertical or horizontal 
+	 *
+	 * @param	int		$x1: x left top corner
+	 * @param	int		$y1: y left top corner
+	 * @param	int		$x2: x right bottom corner
+	 * @param	int		$y2: y right bottom corner
+	 * @param	string		$color: css color
+	 * @return	string		thin div, 1px
+	 */
+	protected function line($x1 ,$y1 ,$x2, $y2, $color) {
+		if ($x1==$x2) {
+			return '<div style="position:absolute;left:'.$x1.'px;top:'.$y1.'px;width:1px;height:'.($y2-$y1).'px;background:'.$color.';"></div>';
+		}
+		if ($y1==$y2) {
+			return '<div style="position:absolute;left:'.$x1.'px;top:'.$y1.'px;width:'.($x2-$x1).'px;height:1px;background:'.$color.';"></div>';
+		}
+	}
+
+	/**
+	 * Writes a text on diagram, only horizontal
+	 *
+	 * @param	string		$size: font-size (css)
+	 * @param	int		$x1: x left top corner
+	 * @param	int		$y1: y left top corner
+	 * @param	int		$text: text
+	 * @param	int		$color: text color
+	 * @return	string		div with text
+	 */
+	protected function text($size, $x1 ,$y1, $text, $color)	{
+		return '<div style="position:absolute;left:'.$x1.'px;top:'.$y1.'px;"><span class="tx_sendsms_diagramm-text" style="color:'.$color.';font-size:'.$size.';">'.$text.'</span></div>';
 	}
 }
 ?>

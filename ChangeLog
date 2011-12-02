@@ -1,3 +1,11 @@
-2011-11-22 Alexander Kraskov  <t3extensions@developergarden.com>
+2011-12-02 Alexander Kraskov  <t3extensions@developergarden.com>
 
-	* The extension has been prepared to publish
+	* Template was changed
+	* Some refactoring
+	* Some bugfix
+
+
+2011-12-01 Alexander Kraskov  <t3extensions@developergarden.com>
+
+	* Added Feedback mode
+	* Some bugfix

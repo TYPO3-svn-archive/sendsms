@@ -30,18 +30,26 @@
  *
  *
  *
- *   44: class  tx_sendsms_callingcodes
- *   81:     protected function removeSpecialSymbols($text)
- *  103:     protected function test($number, $c, $arr)
- *  123:     public function getCallingCode($number)
- *  156:     protected function test2($code, $c, $arr)
- *  174:     public function getTarifzone($code)
+ *   52: class tx_sendsms_callingcodes
+ *   89:     protected function removeSpecialSymbols($text)
+ *  111:     protected function test($number, $c, $arr)
+ *  131:     public function getCallingCode($number)
+ *  164:     protected function test2($code, $c, $arr)
+ *  182:     public function getTarifzone($code)
  *
  * TOTAL FUNCTIONS: 5
  * (This index is automatically created/updated by the extension "extdeveval")
  *
  */
-class  tx_sendsms_callingcodes {
+
+/**
+ * Class with calling codes for the 'sendsms' extension.
+ *
+ * @author	Alexander Kraskov <t3extensions@developergarden.com>
+ * @package	TYPO3
+ * @subpackage	tx_sendsms
+ */
+class tx_sendsms_callingcodes {
 
 	protected  $fourNumerals = array (3906, 1246, 1264, 1268, 1345, 1441, 1473, 1649, 1767, 1784, 1809, 1829, 1868, 1869, 1876);
 	protected  $threeNumerals = array (210, 211, 212, 213, 214, 215, 216, 217, 218, 219, 220, 221, 222, 223, 224, 225, 226, 227, 228, 229, 230, 231, 232, 233, 234, 235, 236, 237, 238, 239, 240, 241, 242, 243, 244, 245, 246, 247, 248, 249, 250, 251, 252, 253, 254, 255, 256, 257, 258, 260, 261, 262, 263, 264, 265, 266, 267, 268, 269, 290, 291, 297, 298, 299,
@@ -113,9 +121,9 @@ class  tx_sendsms_callingcodes {
 	}
 
 	/**
-	 * Searches Callign code in phone nummer
+	 * Searches calling code in phone nummer
 	 * If first sign is 0,  returns 49
-	 * Returns null, if nothing has been found
+	 * Returns NULL, if nothing has been found
 	 *
 	 * @param	string		$number: phone number, only figures
 	 * @return	string		calling code or null

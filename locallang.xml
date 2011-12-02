@@ -30,6 +30,10 @@
 			<label index="label.flex25">Hide restrictions</label>
 			<label index="label.flex26">Hide characters and SMS counter</label>
 			<label index="label.flex27">Hide signature explanation</label>
+			<label index="label.flex28">Activate Feedback mode</label>
+			<label index="label.flex29">Phone number for feedback</label>
+			<label index="label.flex30">Hide price</label>
+			<label index="label.flex31">Hide maximal number of recipients</label>
 			<label index="label.flex11.option0">10 minutes</label>
 			<label index="label.flex11.option1">30 minutes</label>
 			<label index="label.flex11.option2">1 hour</label>
@@ -65,6 +69,10 @@
 			<label index="label.flex25">Einschränkungen verstecken</label>
 			<label index="label.flex26">Zeichenzähler verstecken</label>
 			<label index="label.flex27">Erklärung der Signatur verstecken</label>
+			<label index="label.flex28">Feedback-Modus aktivieren</label>
+			<label index="label.flex29">Feedback-Rufnummer</label>
+			<label index="label.flex30">Price verstecken</label>
+			<label index="label.flex31">Maximal Anzahl der Empfänger verstecken</label>
 			<label index="label.flex11.option0">10 Minuten</label>
 			<label index="label.flex11.option1">30 Minuten</label>
 			<label index="label.flex11.option2">1 Stunde</label>

@@ -1,2 +1,4 @@
 #tx_sendsms_pi1_header {margin-bottom:1em;}
-#tx_sendsms_pi1_answer {margin-bottom:1em;}
+#tx_sendsms_pi1_body {}
+.tx-sendsms-element {margin-bottom: 1em;}
+.tx-sendsms-error{color:red;}

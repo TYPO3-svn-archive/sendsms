@@ -27,7 +27,7 @@
 ***************************************************************/
 
 if (!defined('TYPO3_MODE')) {
-	die ('Access denied.');
+	die ('Resistance is futile.');
 }
 
 t3lib_div::loadTCA('tt_content');

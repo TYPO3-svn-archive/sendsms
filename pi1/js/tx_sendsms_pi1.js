@@ -24,6 +24,10 @@
 *
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
+
+/*
+ * Changes recipient input field size
+ */
 function morePhones() {
 	var phone = document.getElementById("tx_sendsms_pi1_phone");
 	var inputSize = document.getElementById("tx_sendsms_pi1_inputsize");
@@ -38,7 +42,9 @@ function morePhones() {
 	}
 }
 
-// Counts chars, witch have 2 places in sms in text
+/*
+ * Counts chars, witch have 2 places in sms in text
+ */
 function getChars(txt) {
 	if(!txt) {
 		return 0;
@@ -52,12 +58,16 @@ function getChars(txt) {
 	return doubleCount + txt.length;
 }
 
-// Deletes spaces in text
+/*
+ * Deletes spaces in text
+ */ 
 function trim(text) {
 	return text.replace(/\s/g, "");
 }
 
-// Counts recipients in recipients input
+/*
+ * Counts recipients in recipients input
+ */
 function R(txt) {
 	if(!txt) {
 		return 1;
@@ -75,11 +85,17 @@ function R(txt) {
 	return 1;
 }
 
-//displays the number of characters and SMS in the form
+/*
+ * Displays the number of characters and SMS in the form
+ */
 function smsLength(c) {
 	var smsText = document.getElementById("tx_sendsms_pi1_text");
 	var phones = document.getElementById("tx_sendsms_pi1_phone");
-	var recipients = R(phones.value);
+	if (phones === null) {
+		var recipients = 1;
+	} else {
+		var recipients = R(phones.value);
+	}
 	var labelChars = document.getElementById("tx_sendsms_pi1_text_chars");
 	var labelSms = document.getElementById("tx_sendsms_pi1_text_sms");
 	var labelSms = document.getElementById("tx_sendsms_pi1_text_sms");

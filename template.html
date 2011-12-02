@@ -1,138 +1,164 @@
 <html>
-	<!-- ###TEMPLATE### begin -->
-	###INCLUDE_RESTRICTIONS###
-	###INCLUDE_ENVIRONMENT###
-	###INCLUDE_ERRORS###
-	<div id="tx_sendsms_pi1_body">
-	<form action="###FORMACTION###" method="POST">
-		<label for="tx_sendsms_pi1_phone">###LBL_RECIPIENTS###</label>
-		<br />
-		<input size="###RECIPIENTSSIZE###" type="text" id="tx_sendsms_pi1_phone" name="tx_sendsms_pi1[recipient]" value="###VAL_RECIPIENTS###" onchange="smsLength(###SIGNATURELENGTH###);" onkeypress="smsLength(###SIGNATURELENGTH###);" />
-		###TOGGLERECIPIENTS###
-		<input type="hidden" id="tx_sendsms_pi1_inputsize" name="tx_sendsms_pi1[inputsize]" value="###RECIPIENTSSIZE###">
-		<br />
-		###INCLUDE_PHONE_NUMBER_FORMAT###
-		<br />
-		<label for="tx_sendsms_pi1_text">###LBL_MESSAGE###</label>
-		<br />
-		<textarea rows="###MESSAGEROWS###" cols="###MESSAGECOLS###" id="tx_sendsms_pi1_text" name="tx_sendsms_pi1[smstext]" onkeyup="smsLength(###SIGNATURELENGTH###);">###VAL_MESSAGE###</textarea>
-		<br />
-		###INCLUDE_CHARACTERS_COUNT###
-		###INCLUDE_SIGNATURE_EXPLANATION###
-		###INCLUDE_FLASH_SMS###
-		###INCLUDE_CAPTCHA###
-		<br />
-		<input type="submit" id="tx_sendsms_pi1_submit" name="tx_sendsms_pi1[submit_button]" value="###VAL_SUBMIT###"/>
-		<input type="hidden" id="tx_sendsms_pi1_text_sms_left" value="###SMSLEFT###">
-		<input type="hidden" id="tx_sendsms_pi1_text_max_sms" value="###MAXSMS###">
-		<input type="hidden" id="tx_sendsms_pi1_inputsize_min" value="###ISMIN###">
-		<input type="hidden" id="tx_sendsms_pi1_inputsize_max" value="###ISMAX###">
-	</form>
-	</div>
-	<!-- ###TEMPLATE### end -->
+<!-- ###TEMPLATE### begin -->
 
-	<!-- ###HEADER### begin -->
 	<div id="tx_sendsms_pi1_header">
-		###CONTENT_HEADER###
-	</div>
-	<!-- ###HEADER### end -->
-	
-	<!-- ###RESTRICTIONS### begin -->
-	<span>###SPN_RESTRICTIONS###</span>
-	<!-- ###RESTRICTIONS### end -->
-	
-	<!-- ###ERROR### begin -->
-	<span style="color:red;">###SPN_ERROR###</span><br />
-	<!-- ###ERROR### end -->
-	
-	<!-- ###ENVIRONMENT### begin -->
-	<span>###SPN_ENVIRONMENT###</span>
-	<!-- ###ENVIRONMENT### end -->
-	
-	<!-- ###PHONE_NUMBER_FORMAT### begin -->
-	<label for="tx_sendsms_pi1_phone">###LBL_FORMAT###</label>
-	<br />
-	<!-- ###PHONE_NUMBER_FORMAT### end -->
+		
+		<!-- ###RESTRICTIONS### -->
+		<div class="tx-sendsms-element">
+			###SPN_RESTRICTIONS###
+		</div>
+		<!-- ###RESTRICTIONS### -->
 
-	<!-- ###CHARACTERS_COUNT### begin -->
-	<label for="tx_sendsms_pi1_text">###LBL_CHARS_COUNT###:&nbsp;<span id="tx_sendsms_pi1_text_chars">###SPN_CHARS_COUNT###</span>###LBL_FOOTNOTE_SIGN###</label>
-	<label for="tx_sendsms_pi1_text">###LBL_SMS_COUNT###:&nbsp;<span id="tx_sendsms_pi1_text_sms">###SPN_SMS_COUNT###</span></label>
-	<br />
-	<!-- ###CHARACTERS_COUNT### end -->
-	
-	<!-- ###CHARACTERS_COUNT_RED### begin -->
-	<label for="tx_sendsms_pi1_text">###LBL_CHARS_COUNT###:&nbsp;<span id="tx_sendsms_pi1_text_chars" style="color:red;">###SPN_CHARS_COUNT###</span>###LBL_FOOTNOTE_SIGN###</label>
-	<label for="tx_sendsms_pi1_text">###LBL_SMS_COUNT###:&nbsp;<span id="tx_sendsms_pi1_text_sms" style="color:red;">###SPN_SMS_COUNT###</span></label>
-	<br />
-	<!-- ###CHARACTERS_COUNT_RED### end -->
-	
-	<!-- ###SIGNATURE_EXPLANATION### begin -->
-	<small>###LBL_SIGNATURE_EXPLANATION###</small>
-	<br />
-	<!-- ###SIGNATURE_EXPLANATION### end -->
-	
-	<!-- ###FLASH_SMS### begin -->
-	<br />
-	<input type="checkbox" id="tx_sendsms_pi1_flash_sms" name="tx_sendsms_pi1[flash_sms]" value="###VALUEFLASHSMS###"/>
-	<label for="tx_sendsms_pi1_flash_sms">###FLASHSMSLABEL###</label>
-	<br />
-	<!-- ###FLASH_SMS### end -->
-	
-	<!-- ###CAPTCHA### begin -->
-	<br />
-	<div class="tx-sendsms-captcha">
-		<label for="tx_sendsms_pi1_captcha_response">###CAPTCHALABEL###</label>
-		<br />
-		###SR_FREECAP_IMAGE###
-		<br />
-		###SR_FREECAP_CANT_READ###
-		###SR_FREECAP_ACCESSIBLE###
-		<br />
-		<input type="text" size="15" id="tx_sendsms_pi1_captcha_response" name="tx_sendsms_pi1[captcha_response]" title="###SR_FREECAP_NOTICE###" value="">
-	</div>
-	<!-- ###CAPTCHA### end -->
-	
-	<!-- ###TOGGLE### begin -->
-	<a href="#" onclick="this.blur();morePhones();return false;">...</a>
-	<!-- ###TOGGLE### end -->
-	
-	<!-- ###RESULT_FORM### begin -->
-	<div id="tx_sendsms_pi1_header">
-		<span>###SPN_STATUS###</span>
-		<br>
-		<span>###INCLUDE_ENVIRONMENT###</span>
+		<!-- ###ENVIRONMENT### -->
+			<div class="tx-sendsms-element">
+			###SPN_ENVIRONMENT###
+			</div>
+		<!-- ###ENVIRONMENT### -->
+
+		<!-- ###ERROR### -->
+			<div class="tx-sendsms-element">
+				<span class="tx-sendsms-error">###SPN_ERROR###</span>
+			</div>
+		<!-- ###ERROR### -->
+		
 	</div>
 	<div id="tx_sendsms_pi1_body">
-		<strong>###LBL_RECIPIENTS###</strong>
-		<br />
+		<form action="###FORMACTION###" method="POST">
+
+			<!-- ###RECIPIENTS### -->
+			<div class="tx-sendsms-element">
+				<label for="tx_sendsms_pi1_phone">###LBL_RECIPIENTS###</label>
+				<br />
+				<input size="###RECIPIENTSSIZE###" type="text" id="tx_sendsms_pi1_phone" name="tx_sendsms_pi1[recipient]" value="###VAL_RECIPIENTS###" onchange="smsLength(###SIGNATURELENGTH###);" onkeypress="smsLength(###SIGNATURELENGTH###);" />
+				<input type="hidden" id="tx_sendsms_pi1_inputsize" name="tx_sendsms_pi1[inputsize]" value="###RECIPIENTSSIZE###">
+				<a href="#" onclick="this.blur();morePhones();return false;">...</a>
+				<!-- ###PHONE_NUMBER_FORMAT### -->
+					<br/>
+					<label for="tx_sendsms_pi1_phone">###LBL_FORMAT###</label>
+				<!-- ###PHONE_NUMBER_FORMAT### -->
+			</div>
+			<!-- ###RECIPIENTS### -->
+
+			<div class="tx-sendsms-element">
+				<label for="tx_sendsms_pi1_text">###LBL_MESSAGE###</label>
+				<br />
+				<textarea rows="###MESSAGEROWS###" cols="###MESSAGECOLS###" id="tx_sendsms_pi1_text" name="tx_sendsms_pi1[smstext]" onkeyup="smsLength(###SIGNATURELENGTH###);">###VAL_MESSAGE###</textarea>
+				<br />
+
+			<!-- ###CHARACTERS_COUNT### -->
+				<label for="tx_sendsms_pi1_text">###LBL_CHARS_COUNT###:&nbsp;<span id="tx_sendsms_pi1_text_chars">###SPN_CHARS_COUNT###</span>###LBL_FOOTNOTE_SIGN###</label>
+				<label for="tx_sendsms_pi1_text">###LBL_SMS_COUNT###:&nbsp;<span id="tx_sendsms_pi1_text_sms">###SPN_SMS_COUNT###</span></label>
+				<br />
+			<!-- ###CHARACTERS_COUNT### -->
+
+			<!-- ###CHARACTERS_COUNT_RED### -->
+				<label for="tx_sendsms_pi1_text">###LBL_CHARS_COUNT###:&nbsp;<span id="tx_sendsms_pi1_text_chars" style="color:red;">###SPN_CHARS_COUNT###</span>###LBL_FOOTNOTE_SIGN###</label>
+				<label for="tx_sendsms_pi1_text">###LBL_SMS_COUNT###:&nbsp;<span id="tx_sendsms_pi1_text_sms" style="color:red;">###SPN_SMS_COUNT###</span></label>
+				<br />
+			<!-- ###CHARACTERS_COUNT_RED### -->
+
+			<!-- ###SIGNATURE_EXPLANATION### -->
+				<small>###LBL_SIGNATURE_EXPLANATION###</small>
+				<br />
+			<!-- ###SIGNATURE_EXPLANATION### -->
+
+			</div>
+
+			<!-- ###FLASH_SMS### -->
+				<div class="tx-sendsms-element">
+					<input type="checkbox" id="tx_sendsms_pi1_flash_sms" name="tx_sendsms_pi1[flash_sms]"###CHECKED_FLASH_SMS###/>
+					<label for="tx_sendsms_pi1_flash_sms">###FLASHSMSLABEL###</label>
+				</div>
+			<!-- ###FLASH_SMS### -->
+
+			<!-- ###CAPTCHA### -->
+				<div class="tx-sendsms-element">
+					<label for="tx_sendsms_pi1_captcha_response">###CAPTCHALABEL###</label>
+					<br />
+					###SR_FREECAP_IMAGE###
+					<br />
+					###SR_FREECAP_CANT_READ###
+					###SR_FREECAP_ACCESSIBLE###
+					<br />
+					<input type="text" size="15" id="tx_sendsms_pi1_captcha_response" name="tx_sendsms_pi1[captcha_response]" title="###SR_FREECAP_NOTICE###" value="">
+				</div>
+			<!-- ###CAPTCHA### -->
+
+			<div class="tx-sendsms-element">
+				<input type="submit" id="tx_sendsms_pi1_submit" name="tx_sendsms_pi1[submit_button]" value="###VAL_SUBMIT###"/>
+			</div>
+			<input type="hidden" id="tx_sendsms_pi1_text_sms_left" value="###SMSLEFT###">
+			<input type="hidden" id="tx_sendsms_pi1_text_max_sms" value="###MAXSMS###">
+			<input type="hidden" id="tx_sendsms_pi1_inputsize_min" value="###ISMIN###">
+			<input type="hidden" id="tx_sendsms_pi1_inputsize_max" value="###ISMAX###">
+		</form>
+	</div>
+<!-- ###TEMPLATE### end -->
+	
+<!-- ###RESULT_FORM### begin -->
+
+<!-- ###ENVIROMENT### -->
+	<div id="tx_sendsms_pi1_header">
+		<div class="tx-sendsms-element">
+			###SPN_ENVIRONMENT###
+		</div>
+		<!-- ###ENVIROMENT### -->
+
+		<div class="tx-sendsms-element">
+			###SPN_STATUS###
+		</div>
+	</div>
+	<div id="tx_sendsms_pi1_body">
+		<!-- ###RECIPIENTS### -->
+		<div class="tx-sendsms-element">
+			<strong>###LBL_RECIPIENTS###</strong>
+			<br />
 <pre>###VAL_RECIPIENTS###</pre>
-		<strong>###LBL_MESSAGE###</strong>
-		<br />
+		</div>
+		<!-- ###RECIPIENTS### -->
+
+		<div class="tx-sendsms-element">
+			<strong>###LBL_MESSAGE###</strong>
+			<br />
 <pre>###VAL_MESSAGE###</pre>
-		<span>###SPN_PRICE###</span>
-		<br />
-		<br />
-		###LNK_NEXT_SMS###
+		</div>
+
+		<!-- ###PRICE### -->
+		<div class="tx-sendsms-element">
+			###SPN_PRICE###
+		</div>
+		<!-- ###PRICE### -->
+
+		<div class="tx-sendsms-element">
+			###LNK_NEXT_SMS###
+		</div>
 	</div>
-	<!-- ###RESULT_FORM### end -->
+<!-- ###RESULT_FORM### end -->
 	
 	<!-- ###DISABLED_FORM### begin -->
-	<div id="tx_sendsms_pi1_header">
-		<span>###SPN_DISABLED###</span>
-	</div>
-	<div id="tx_sendsms_pi1_body">
-	<form>
-		<label for="tx_sendsms_pi1_phone">###LBL_RECIPIENTS###</label>
-		<br />
-		<input disabled="disabled" size="###RECIPIENTSSIZE###" type="text" id="tx_sendsms_pi1_phone" name="tx_sendsms_pi1[recipient]"/>
-		<br />
-		<br />
-		<label for="tx_sendsms_pi1_text">###LBL_MESSAGE###</label>
-		<br />
-		<textarea disabled="disabled" rows="###MESSAGEROWS###" cols="###MESSAGECOLS###" id="tx_sendsms_pi1_text"></textarea>
-		<br /><br />
-		<input disabled="disabled" type="submit" id="tx_sendsms_pi1_submit" value="###VAL_SUBMIT###"/>
-	</form>
-	</div>
+		<div id="tx_sendsms_pi1_header">
+			###SPN_DISABLED###
+		</div>
+		<div id="tx_sendsms_pi1_body">
+		<form>
+			
+			<!-- ###RECIPIENTS### -->
+			<div class="tx-sendsms-element">
+				<label for="tx_sendsms_pi1_phone">###LBL_RECIPIENTS###</label>
+				<br />
+				<input disabled="disabled" size="###RECIPIENTSSIZE###" type="text" id="tx_sendsms_pi1_phone" name="tx_sendsms_pi1[recipient]"/>
+			</div>
+			<!-- ###RECIPIENTS### -->
+			
+			<div class="tx-sendsms-element">
+				<label for="tx_sendsms_pi1_text">###LBL_MESSAGE###</label>
+				<br />
+				<textarea disabled="disabled" rows="###MESSAGEROWS###" cols="###MESSAGECOLS###" id="tx_sendsms_pi1_text"></textarea>
+			</div>
+			<div class="tx-sendsms-element">
+				<input disabled="disabled" type="submit" id="tx_sendsms_pi1_submit" value="###VAL_SUBMIT###"/>
+			</div>
+		</form>
+		</div>
 	<!-- ###DISABLED_FORM### end -->
 </html>
